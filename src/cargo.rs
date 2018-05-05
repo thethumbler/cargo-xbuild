@@ -60,24 +60,6 @@ pub fn rustflags(config: Option<&Config>, target: &str) -> Result<Rustflags> {
     flags(config, target, "rustflags").map(|fs| Rustflags { flags: fs })
 }
 
-pub struct Rustdocflags {
-    flags: Vec<String>,
-}
-
-impl Rustdocflags {
-    /// Stringifies these flags for Xargo consumption
-    pub fn for_xargo(mut self, home: &Home) -> String {
-        self.flags.push("--sysroot".to_owned());
-        self.flags.push(home.display().to_string());
-        self.flags.join(" ")
-    }
-}
-
-pub fn rustdocflags(config: Option<&Config>, target: &str) -> Result<Rustdocflags> {
-    flags(config, target, "rustdocflags").map(|fs| Rustdocflags { flags: fs })
-}
-
-
 /// Returns the flags for `tool` (e.g. rustflags)
 ///
 /// This looks into the environment and into `.cargo/config`
@@ -245,40 +227,4 @@ pub fn root() -> Result<Option<Root>> {
     let cd = env::current_dir().chain_err(|| "couldn't get the current directory")?;
 
     Ok(util::search(&cd, "Cargo.toml").map(|p| Root { path: p.to_owned() }))
-}
-
-#[derive(Clone, Copy, PartialEq)]
-pub enum Subcommand {
-    Clean,
-    Doc,
-    Init,
-    New,
-    Other,
-    Search,
-    Update,
-}
-
-impl Subcommand {
-    pub fn needs_sysroot(&self) -> bool {
-        use self::Subcommand::*;
-
-        match *self {
-            Clean | Init | New | Search | Update => false,
-            _ => true,
-        }
-    }
-}
-
-impl<'a> From<&'a str> for Subcommand {
-    fn from(s: &str) -> Subcommand {
-        match s {
-            "clean" => Subcommand::Clean,
-            "doc" => Subcommand::Doc,
-            "init" => Subcommand::Init,
-            "new" => Subcommand::New,
-            "search" => Subcommand::Search,
-            "update" => Subcommand::Update,
-            _ => Subcommand::Other,
-        }
-    }
 }

@@ -1,12 +1,12 @@
 [package]
-authors = ["Jorge Aparicio <jorge@japaric.io>"]
+authors = ["Jorge Aparicio <jorge@japaric.io>", "Philipp Oppermann <dev@phil-opp.com>"]
 build = "build.rs"
-categories = ["command-line-utilities", "development-tools", "embedded"]
-description = "The sysroot manager that lets you build and customize `std`"
+categories = ["command-line-utilities", "development-tools", "embedded", "os"]
+description = "Automatically cross-compiles the sysroot crates core, compiler_builtins, and alloc."
 documentation = "https://github.com/japaric/xargo#xargo"
-keywords = ["cli", "cross", "compilation", "std"]
+keywords = ["cli", "cross", "compilation", "std", "osdev"]
 license = "MIT OR Apache-2.0"
-name = "xargo"
+name = "cargo-xbuild"
 repository = "https://github.com/japaric/xargo"
 version = "0.3.12"
 

@@ -6,12 +6,11 @@ use std::io::{self, Write};
 use rustc_version::VersionMeta;
 
 use CompilationMode;
-use cargo::{Config, Rustflags, Subcommand};
+use cargo::Rustflags;
 use cli::Args;
 use errors::*;
 use extensions::CommandExt;
 use flock::{FileLock, Filesystem};
-use {cargo};
 
 pub fn run(
     args: &Args,
@@ -19,18 +18,11 @@ pub fn run(
     rustflags: Rustflags,
     home: &Home,
     meta: &VersionMeta,
-    config: Option<&Config>,
     verbose: bool,
 ) -> Result<ExitStatus> {
     let mut cmd = Command::new("cargo");
+    cmd.arg("build");
     cmd.args(args.all());
-
-    if args.subcommand() == Some(Subcommand::Doc) {
-        cmd.env(
-            "RUSTDOCFLAGS",
-            cargo::rustdocflags(config, cmode.triple())?.for_xargo(home),
-        );
-    }
 
     let flags = rustflags.for_xargo(home);
     if verbose {

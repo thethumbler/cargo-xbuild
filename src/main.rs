@@ -106,35 +106,36 @@ pub fn main() {
 
             process::exit(1)
         }
-        Ok(status) => if !status.success() {
+        Ok(Some(status)) => if !status.success() {
             process::exit(status.code().unwrap_or(1))
+        },
+        Ok(None) => {}
+    }
+}
+
+fn run() -> Result<Option<ExitStatus>> {
+    use cli::Command;
+    let (command, args) = cli::args()?;
+    match command {
+        Command::Build => Ok(Some(build(args)?)),
+        Command::Help => unimplemented!(),
+        Command::Version => {
+            writeln!(
+                io::stdout(),
+                concat!("cargo-xbuild ", env!("CARGO_PKG_VERSION"), "{}"),
+                include_str!(concat!(env!("OUT_DIR"), "/commit-info.txt"))
+            ).unwrap();
+            Ok(None)
         },
     }
 }
 
-fn run() -> Result<ExitStatus> {
-    let args = cli::args();
+fn build(args: cli::Args) -> Result<(ExitStatus)> {
     let verbose = args.verbose();
-
     let meta = rustc::version();
-
-    if let Some(sc) = args.subcommand() {
-        if !sc.needs_sysroot() {
-            return cargo::run(&args, verbose);
-        }
-    } else if args.version() {
-        writeln!(
-            io::stderr(),
-            concat!("xargo ", env!("CARGO_PKG_VERSION"), "{}"),
-            include_str!(concat!(env!("OUT_DIR"), "/commit-info.txt"))
-        ).ok();
-
-        return cargo::run(&args, verbose);
-    }
-
     let cd = CurrentDirectory::get()?;
-
     let config = cargo::config()?;
+
     if let Some(root) = cargo::root()? {
         // We can't build sysroot with stable or beta due to unstable features
         let sysroot = rustc::sysroot(verbose)?;
@@ -197,7 +198,6 @@ fn run() -> Result<ExitStatus> {
                 rustflags,
                 &home,
                 &meta,
-                config.as_ref(),
                 verbose,
             );
         }

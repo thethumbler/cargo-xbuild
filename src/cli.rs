@@ -1,20 +1,13 @@
 use std::env;
 
-use cargo::Subcommand;
-
 pub struct Args {
     all: Vec<String>,
-    subcommand: Option<Subcommand>,
     target: Option<String>,
 }
 
 impl Args {
     pub fn all(&self) -> &[String] {
         &self.all
-    }
-
-    pub fn subcommand(&self) -> Option<Subcommand> {
-        self.subcommand
     }
 
     pub fn target(&self) -> Option<&str> {
@@ -26,24 +19,24 @@ impl Args {
             .iter()
             .any(|a| a == "--verbose" || a == "-v" || a == "-vv")
     }
-
-    pub fn version(&self) -> bool {
-        self.all.iter().any(|a| a == "--version" || a == "-V")
-    }
 }
 
-pub fn args() -> Args {
-    let all = env::args().skip(1).collect::<Vec<_>>();
+pub fn args() -> Result<(Command, Args), String> {
+    let mut args = env::args().skip(1);
+    if args.next() != Some("xbuild".into()) {
+        Err("must be invoked as cargo subcommand: `cargo xbuild`")?;
+    }
+    let all = args.collect::<Vec<_>>();
+    let command = match all.first().map(|s| s.as_str()) {
+        Some("-h") | Some("--help") => Command::Help,
+        Some("-v") | Some("--version") => Command::Version,
+        _ => Command::Build,
+    };
 
-    let mut sc = None;
     let mut target = None;
     {
         let mut args = all.iter();
         while let Some(arg) = args.next() {
-            if !arg.starts_with("-") {
-                sc = sc.or_else(|| Some(Subcommand::from(&**arg)));
-            }
-
             if arg == "--target" {
                 target = args.next().map(|s| s.to_owned());
             } else if arg.starts_with("--target=") {
@@ -52,9 +45,16 @@ pub fn args() -> Args {
         }
     }
 
-    Args {
+    let args = Args {
         all: all,
-        subcommand: sc,
         target: target,
-    }
+    };
+    Ok((command, args))
+}
+
+#[derive(Clone, PartialEq)]
+pub enum Command {
+    Build,
+    Help,
+    Version,
 }
