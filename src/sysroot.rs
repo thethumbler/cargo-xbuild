@@ -345,19 +345,25 @@ impl Blueprint {
                 // If no dependencies were listed, we assume `core` and `compiler_builtins` as the
                 // dependencies
                 let mut t = BTreeMap::new();
+
                 let mut core = BTreeMap::new();
                 core.insert("stage".to_owned(), Value::Integer(0));
                 t.insert("core".to_owned(), Value::Table(core));
                 let mut cb = BTreeMap::new();
                 cb.insert(
                     "features".to_owned(),
-                    Value::Array(vec![Value::String("mem".to_owned())]),
+                    Value::Array(vec![
+                        Value::String("mem".to_owned()),
+                        Value::String("compiler-builtins".to_owned()),
+                    ]),
                 );
+                cb.insert("default-features".to_owned(), Value::Boolean(false));
                 cb.insert("stage".to_owned(), Value::Integer(1));
                 t.insert(
                     "compiler_builtins".to_owned(),
                     Value::Table(cb),
                 );
+
                 t
             }
         };
