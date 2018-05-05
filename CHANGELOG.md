@@ -5,6 +5,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.4.0] - 2018-05-05
+- Forked as `cargo-xbuild`
+- Cargo subcommand instead of standalone tool: `cargo xbuild` insetad of `xargo build`
+- Remove support for all subcommands other than `build`
+- Always build `core`, `compiler_builtins` and `alloc`
+  - Building `std` is no longer possible
+- Configuration via `Xargo.toml` is no longer possible
+- Build sysroot inside `target` folder instead of global `~/.xargo`
+- Paths can be passed to `--target` now: `cargo xbuild src/../my-custom-target.json`
+  - The `RUST_TARGET_PATH` is not needed for paths
+
 ## [v0.3.12] - 2018-04-08
 
 ### Changed
