@@ -3,16 +3,15 @@ use std::process::{Command, ExitStatus};
 use std::{env, mem};
 use std::io::{self, Write};
 
-use toml::Value;
 use rustc_version::VersionMeta;
 
 use CompilationMode;
-use cargo::{Config, Root, Rustflags, Subcommand};
+use cargo::{Config, Rustflags, Subcommand};
 use cli::Args;
 use errors::*;
 use extensions::CommandExt;
 use flock::{FileLock, Filesystem};
-use {cargo, util};
+use {cargo};
 
 pub fn run(
     args: &Args,
@@ -96,31 +95,4 @@ pub fn home(cmode: &CompilationMode) -> Result<Home> {
     Ok(Home {
         path: Filesystem::new(p),
     })
-}
-
-pub struct Toml {
-    table: Value,
-}
-
-impl Toml {
-    /// Returns the `dependencies` part of `Xargo.toml`
-    pub fn dependencies(&self) -> Option<&Value> {
-        self.table.lookup("dependencies")
-    }
-
-    /// Returns the `target.{}.dependencies` part of `Xargo.toml`
-    pub fn target_dependencies(&self, target: &str) -> Option<&Value> {
-        self.table
-            .lookup(&format!("target.{}.dependencies", target))
-    }
-}
-
-pub fn toml(root: &Root) -> Result<Option<Toml>> {
-    let p = root.path().join("Xargo.toml");
-
-    if p.exists() {
-        util::parse(&p).map(|t| Some(Toml { table: t }))
-    } else {
-        Ok(None)
-    }
 }
