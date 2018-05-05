@@ -139,6 +139,7 @@ fn build(args: cli::Args) -> Result<(ExitStatus)> {
     let metadata = cargo_metadata::metadata(args.manifest_path())
         .expect("cargo metadata invocation failed");
     let root = Path::new(&metadata.workspace_root);
+    let target_directory = Path::new(&metadata.target_directory);
 
     // We can't build sysroot with stable or beta due to unstable features
     let sysroot = rustc::sysroot(verbose)?;
@@ -182,7 +183,7 @@ fn build(args: cli::Args) -> Result<(ExitStatus)> {
     };
 
     if let Some(cmode) = cmode {
-        let home = xargo::home(&cmode)?;
+        let home = xargo::home(target_directory)?;
         let rustflags = cargo::rustflags(config.as_ref(), cmode.triple())?;
 
         sysroot::update(

@@ -1,7 +1,8 @@
 use std::path::{Display, PathBuf};
 use std::process::{Command, ExitStatus};
-use std::{env, mem};
+use std::mem;
 use std::io::{self, Write};
+use std::path::Path;
 
 use rustc_version::VersionMeta;
 
@@ -71,18 +72,9 @@ impl Home {
     }
 }
 
-pub fn home(cmode: &CompilationMode) -> Result<Home> {
-    let mut p = if let Some(h) = env::var_os("XARGO_HOME") {
-        PathBuf::from(h)
-    } else {
-        env::home_dir()
-            .ok_or_else(|| "couldn't find your home directory. Is $HOME set?")?
-            .join(".xargo")
-    };
-
-    if cmode.is_native() {
-        p.push("HOST");
-    }
+pub fn home(target_directory: &Path) -> Result<Home> {
+    let mut p = PathBuf::from(target_directory);
+    p.push("sysroot");
 
     Ok(Home {
         path: Filesystem::new(p),
