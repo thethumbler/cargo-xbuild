@@ -8,6 +8,7 @@ extern crate serde_json;
 extern crate tempdir;
 extern crate toml;
 extern crate walkdir;
+extern crate cargo_metadata;
 
 use std::hash::{Hash, Hasher};
 use std::io::Write;
@@ -113,6 +114,7 @@ pub fn main() {
 
 fn run() -> Result<Option<ExitStatus>> {
     use cli::Command;
+
     let (command, args) = cli::args()?;
     match command {
         Command::Build => Ok(Some(build(args)?)),
@@ -134,71 +136,73 @@ fn build(args: cli::Args) -> Result<(ExitStatus)> {
     let cd = CurrentDirectory::get()?;
     let config = cargo::config()?;
 
-    if let Some(root) = cargo::root()? {
-        // We can't build sysroot with stable or beta due to unstable features
-        let sysroot = rustc::sysroot(verbose)?;
-        let src = match meta.channel {
-            Channel::Dev => rustc::Src::from_env().ok_or(
-                "The XARGO_RUST_SRC env variable must be set and point to the \
-                 Rust source directory when working with the 'dev' channel",
-            )?,
-            Channel::Nightly => if let Some(src) = rustc::Src::from_env() {
-                src
-            } else {
-                sysroot.src()?
-            },
-            Channel::Stable | Channel::Beta => {
-                writeln!(
-                    io::stderr(),
-                    "WARNING: the sysroot can't be built for the {:?} channel. \
-                     Switch to nightly.",
-                    meta.channel
-                ).ok();
-                return cargo::run(&args, verbose);
-            }
-        };
+    let metadata = cargo_metadata::metadata(args.manifest_path())
+        .expect("cargo metadata invocation failed");
+    let root = Path::new(&metadata.workspace_root);
 
-        let cmode = if let Some(triple) = args.target() {
-            if triple == meta.host {
-                Some(CompilationMode::Native(meta.host.clone()))
-            } else {
+    // We can't build sysroot with stable or beta due to unstable features
+    let sysroot = rustc::sysroot(verbose)?;
+    let src = match meta.channel {
+        Channel::Dev => rustc::Src::from_env().ok_or(
+            "The XARGO_RUST_SRC env variable must be set and point to the \
+                Rust source directory when working with the 'dev' channel",
+        )?,
+        Channel::Nightly => if let Some(src) = rustc::Src::from_env() {
+            src
+        } else {
+            sysroot.src()?
+        },
+        Channel::Stable | Channel::Beta => {
+            writeln!(
+                io::stderr(),
+                "WARNING: the sysroot can't be built for the {:?} channel. \
+                    Switch to nightly.",
+                meta.channel
+            ).ok();
+            return cargo::run(&args, verbose);
+        }
+    };
+
+    let cmode = if let Some(triple) = args.target() {
+        if triple == meta.host {
+            Some(CompilationMode::Native(meta.host.clone()))
+        } else {
+            Target::new(triple, &cd, verbose)?.map(CompilationMode::Cross)
+        }
+    } else {
+        if let Some(ref config) = config {
+            if let Some(triple) = config.target()? {
                 Target::new(triple, &cd, verbose)?.map(CompilationMode::Cross)
+            } else {
+                Some(CompilationMode::Native(meta.host.clone()))
             }
         } else {
-            if let Some(ref config) = config {
-                if let Some(triple) = config.target()? {
-                    Target::new(triple, &cd, verbose)?.map(CompilationMode::Cross)
-                } else {
-                    Some(CompilationMode::Native(meta.host.clone()))
-                }
-            } else {
-                Some(CompilationMode::Native(meta.host.clone()))
-            }
-        };
-
-        if let Some(cmode) = cmode {
-            let home = xargo::home(&cmode)?;
-            let rustflags = cargo::rustflags(config.as_ref(), cmode.triple())?;
-
-            sysroot::update(
-                &cmode,
-                &home,
-                &root,
-                &rustflags,
-                &meta,
-                &src,
-                &sysroot,
-                verbose,
-            )?;
-            return xargo::run(
-                &args,
-                &cmode,
-                rustflags,
-                &home,
-                &meta,
-                verbose,
-            );
+            Some(CompilationMode::Native(meta.host.clone()))
         }
+    };
+
+    if let Some(cmode) = cmode {
+        let home = xargo::home(&cmode)?;
+        let rustflags = cargo::rustflags(config.as_ref(), cmode.triple())?;
+
+        sysroot::update(
+            &cmode,
+            &home,
+            &root,
+            &rustflags,
+            &meta,
+            &src,
+            &sysroot,
+            verbose,
+        )?;
+        return xargo::run(
+            &args,
+            &cmode,
+            rustflags,
+            &home,
+            &meta,
+            verbose,
+        );
     }
 
     cargo::run(&args, verbose)

@@ -1,8 +1,10 @@
 use std::env;
+use std::path::{Path, PathBuf};
 
 pub struct Args {
     all: Vec<String>,
     target: Option<String>,
+    manifest_path: Option<PathBuf>,
 }
 
 impl Args {
@@ -12,6 +14,10 @@ impl Args {
 
     pub fn target(&self) -> Option<&str> {
         self.target.as_ref().map(|s| &**s)
+    }
+
+    pub fn manifest_path(&self) -> Option<&Path> {
+        self.manifest_path.as_ref().map(|s| &**s)
     }
 
     pub fn verbose(&self) -> bool {
@@ -34,6 +40,7 @@ pub fn args() -> Result<(Command, Args), String> {
     };
 
     let mut target = None;
+    let mut manifest_path = None;
     {
         let mut args = all.iter();
         while let Some(arg) = args.next() {
@@ -42,12 +49,18 @@ pub fn args() -> Result<(Command, Args), String> {
             } else if arg.starts_with("--target=") {
                 target = arg.splitn(2, '=').nth(1).map(|s| s.to_owned());
             }
+            if arg == "--manifest-path" {
+                manifest_path = args.next().map(|s| s.to_owned());
+            } else if arg.starts_with("--manifest-path=") {
+                manifest_path = arg.splitn(2, '=').nth(1).map(|s| s.to_owned());
+            }
         }
     }
 
     let args = Args {
         all: all,
         target: target,
+        manifest_path: manifest_path.as_ref().map(PathBuf::from),
     };
     Ok((command, args))
 }

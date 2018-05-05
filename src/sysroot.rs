@@ -9,7 +9,7 @@ use tempdir::TempDir;
 use toml::{Table, Value};
 
 use CompilationMode;
-use cargo::{Root, Rustflags};
+use cargo::{Rustflags};
 use errors::*;
 use extensions::CommandExt;
 use rustc::{Src, Sysroot, Target};
@@ -270,7 +270,7 @@ fn hash(
 pub fn update(
     cmode: &CompilationMode,
     home: &Home,
-    root: &Root,
+    root: &Path,
     rustflags: &Rustflags,
     meta: &VersionMeta,
     src: &Src,

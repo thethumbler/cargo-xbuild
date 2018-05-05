@@ -1,6 +1,6 @@
 use std::collections::BTreeMap;
 use std::hash::{Hash, Hasher};
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::process::{Command, ExitStatus};
 use std::{env, fmt};
 
@@ -209,22 +209,6 @@ impl Toml {
     }
 }
 
-pub fn toml(root: &Root) -> Result<Toml> {
-    util::parse(&root.path().join("Cargo.toml")).map(|t| Toml { table: t })
-}
-
-pub struct Root {
-    path: PathBuf,
-}
-
-impl Root {
-    pub fn path(&self) -> &Path {
-        &self.path
-    }
-}
-
-pub fn root() -> Result<Option<Root>> {
-    let cd = env::current_dir().chain_err(|| "couldn't get the current directory")?;
-
-    Ok(util::search(&cd, "Cargo.toml").map(|p| Root { path: p.to_owned() }))
+pub fn toml(root: &Path) -> Result<Toml> {
+    util::parse(&root.join("Cargo.toml")).map(|t| Toml { table: t })
 }
