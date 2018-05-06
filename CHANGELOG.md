@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+- Fix docs link in Cargo.toml
 
 ## [v0.4.0] - 2018-05-05
 - Forked as `cargo-xbuild`
