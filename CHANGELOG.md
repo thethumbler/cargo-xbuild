@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [v0.4.1] - 2018-05-06
 - Fix docs link in Cargo.toml
 
 ## [v0.4.0] - 2018-05-05
