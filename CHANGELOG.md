@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.4.2] - 2018-05-07
+- Implement `--help`
+
 ## [v0.4.1] - 2018-05-06
 - Fix docs link in Cargo.toml
 
