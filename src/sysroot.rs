@@ -9,7 +9,7 @@ use tempdir::TempDir;
 use toml::{Table, Value};
 
 use CompilationMode;
-use cargo::{Rustflags};
+use cargo::Rustflags;
 use errors::*;
 use extensions::CommandExt;
 use rustc::{Src, Sysroot, Target};
@@ -33,7 +33,7 @@ fn build(
     home: &Home,
     src: &Src,
     hash: u64,
-    verbose: bool
+    verbose: bool,
 ) -> Result<()> {
     let rustlib = home.lock_rw(cmode.triple())?;
     rustlib
@@ -59,7 +59,7 @@ fn build_crate(
     ctoml: &cargo::Toml,
     home: &Home,
     dst: &Path,
-    verbose: bool
+    verbose: bool,
 ) -> Result<()> {
     let td = TempDir::new("xargo").chain_err(|| "couldn't create a temporary directory")?;
     let td = td.path();
@@ -136,9 +136,9 @@ fn build_libcore(
     home: &Home,
     src: &Src,
     dst: &Path,
-    verbose: bool
+    verbose: bool,
 ) -> Result<()> {
-        const TOML: &'static str = r#"
+    const TOML: &'static str = r#"
 [package]
 authors = ["The Rust Project Developers"]
 name = "sysroot"
@@ -165,9 +165,9 @@ fn build_libcompiler_builtins(
     home: &Home,
     src: &Src,
     dst: &Path,
-    verbose: bool
+    verbose: bool,
 ) -> Result<()> {
-        const TOML: &'static str = r#"
+    const TOML: &'static str = r#"
 [package]
 authors = ["The Rust Project Developers"]
 name = "sysroot"
@@ -176,7 +176,10 @@ version = "0.0.0"
 
     let mut stoml = TOML.to_owned();
 
-    let path = src.path().join("libcompiler_builtins").display().to_string();
+    let path = src.path()
+        .join("libcompiler_builtins")
+        .display()
+        .to_string();
     let mut compiler_builtin_dep = Table::new();
     compiler_builtin_dep.insert("path".to_owned(), Value::String(path));
     compiler_builtin_dep.insert("default-features".to_owned(), Value::Boolean(false));
@@ -188,7 +191,10 @@ version = "0.0.0"
         ]),
     );
     let mut deps = Table::new();
-    deps.insert("compiler_builtins".to_owned(), Value::Table(compiler_builtin_dep));
+    deps.insert(
+        "compiler_builtins".to_owned(),
+        Value::Table(compiler_builtin_dep),
+    );
     let mut map = Table::new();
     map.insert("dependencies".to_owned(), Value::Table(deps));
     stoml.push_str(&Value::Table(map).to_string());
@@ -202,9 +208,9 @@ fn build_liballoc(
     home: &Home,
     src: &Src,
     dst: &Path,
-    verbose: bool
+    verbose: bool,
 ) -> Result<()> {
-        const TOML: &'static str = r#"
+    const TOML: &'static str = r#"
 [package]
 authors = ["The Rust Project Developers"]
 name = "alloc"

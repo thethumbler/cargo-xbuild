@@ -65,12 +65,10 @@ pub fn rustflags(config: Option<&Config>, target: &str) -> Result<Rustflags> {
 /// This looks into the environment and into `.cargo/config`
 fn flags(config: Option<&Config>, target: &str, tool: &str) -> Result<Vec<String>> {
     if let Some(t) = env::var_os(tool.to_uppercase()) {
-        return Ok(
-            t.to_string_lossy()
-                .split_whitespace()
-                .map(|w| w.to_owned())
-                .collect(),
-        );
+        return Ok(t.to_string_lossy()
+            .split_whitespace()
+            .map(|w| w.to_owned())
+            .collect());
     }
 
     if let Some(config) = config.as_ref() {
@@ -109,8 +107,7 @@ fn flags(config: Option<&Config>, target: &str, tool: &str) -> Result<Vec<String
                     Err(format!(
                         ".cargo/config: target.{}.{} must be an \
                          array of strings",
-                        target,
-                        tool
+                        target, tool
                     ))?
                 }
             } else {
@@ -126,6 +123,7 @@ fn flags(config: Option<&Config>, target: &str, tool: &str) -> Result<Vec<String
 
 pub fn run(args: &Args, verbose: bool) -> Result<ExitStatus> {
     Command::new("cargo")
+        .arg("build")
         .args(args.all())
         .run_and_get_status(verbose)
 }
@@ -137,8 +135,9 @@ pub struct Config {
 impl Config {
     pub fn target(&self) -> Result<Option<&str>> {
         if let Some(v) = self.table.lookup("build.target") {
-            Ok(Some(v.as_str()
-                .ok_or_else(|| format!(".cargo/config: build.target must be a string"))?))
+            Ok(Some(v.as_str().ok_or_else(|| {
+                format!(".cargo/config: build.target must be a string")
+            })?))
         } else {
             Ok(None)
         }

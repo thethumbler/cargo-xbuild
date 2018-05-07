@@ -107,12 +107,9 @@ impl Filesystem {
 
         match state {
             State::Exclusive => {
-                acquire(
-                    msg,
-                    &path,
-                    &|| f.try_lock_exclusive(),
-                    &|| f.lock_exclusive(),
-                )?;
+                acquire(msg, &path, &|| f.try_lock_exclusive(), &|| {
+                    f.lock_exclusive()
+                })?;
             }
             State::Shared => {
                 acquire(msg, &path, &|| f.try_lock_shared(), &|| f.lock_shared())?;

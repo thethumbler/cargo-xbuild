@@ -1,3 +1,4 @@
+extern crate cargo_metadata;
 #[macro_use]
 extern crate error_chain;
 extern crate fs2;
@@ -8,7 +9,6 @@ extern crate serde_json;
 extern crate tempdir;
 extern crate toml;
 extern crate walkdir;
-extern crate cargo_metadata;
 
 use std::hash::{Hash, Hasher};
 use std::io::Write;
@@ -126,7 +126,7 @@ fn run() -> Result<Option<ExitStatus>> {
                 include_str!(concat!(env!("OUT_DIR"), "/commit-info.txt"))
             ).unwrap();
             Ok(None)
-        },
+        }
     }
 }
 
@@ -136,8 +136,8 @@ fn build(args: cli::Args) -> Result<(ExitStatus)> {
     let cd = CurrentDirectory::get()?;
     let config = cargo::config()?;
 
-    let metadata = cargo_metadata::metadata(args.manifest_path())
-        .expect("cargo metadata invocation failed");
+    let metadata =
+        cargo_metadata::metadata(args.manifest_path()).expect("cargo metadata invocation failed");
     let root = Path::new(&metadata.workspace_root);
     let target_directory = Path::new(&metadata.target_directory);
 
@@ -146,7 +146,7 @@ fn build(args: cli::Args) -> Result<(ExitStatus)> {
     let src = match meta.channel {
         Channel::Dev => rustc::Src::from_env().ok_or(
             "The XARGO_RUST_SRC env variable must be set and point to the \
-                Rust source directory when working with the 'dev' channel",
+             Rust source directory when working with the 'dev' channel",
         )?,
         Channel::Nightly => if let Some(src) = rustc::Src::from_env() {
             src
@@ -157,7 +157,7 @@ fn build(args: cli::Args) -> Result<(ExitStatus)> {
             writeln!(
                 io::stderr(),
                 "WARNING: the sysroot can't be built for the {:?} channel. \
-                    Switch to nightly.",
+                 Switch to nightly.",
                 meta.channel
             ).ok();
             return cargo::run(&args, verbose);
@@ -196,14 +196,7 @@ fn build(args: cli::Args) -> Result<(ExitStatus)> {
             &sysroot,
             verbose,
         )?;
-        return xargo::run(
-            &args,
-            &cmode,
-            rustflags,
-            &home,
-            &meta,
-            verbose,
-        );
+        return xargo::run(&args, &cmode, rustflags, &home, &meta, verbose);
     }
 
     cargo::run(&args, verbose)

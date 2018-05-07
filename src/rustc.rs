@@ -34,10 +34,8 @@ pub fn sysroot(verbose: bool) -> Result<Sysroot> {
     command()
         .args(&["--print", "sysroot"])
         .run_and_get_stdout(verbose)
-        .map(|l| {
-            Sysroot {
-                path: PathBuf::from(l.trim()),
-            }
+        .map(|l| Sysroot {
+            path: PathBuf::from(l.trim()),
         })
 }
 /// Path to Rust source
@@ -47,10 +45,8 @@ pub struct Src {
 
 impl Src {
     pub fn from_env() -> Option<Self> {
-        env::var_os("XARGO_RUST_SRC").map(|s| {
-            Src {
-                path: PathBuf::from(s),
-            }
+        env::var_os("XARGO_RUST_SRC").map(|s| Src {
+            path: PathBuf::from(s),
         })
     }
 
@@ -101,17 +97,21 @@ impl Sysroot {
             }
         }
 
-        Err(
-            "`rust-src` component not found. Run `rustup component add \
-             rust-src`.",
-        )?
+        Err("`rust-src` component not found. Run `rustup component add \
+             rust-src`.")?
     }
 }
 
 #[derive(Debug)]
 pub enum Target {
-    Builtin { triple: String },
-    Custom { json: PathBuf, triple: String, orig_triple: String },
+    Builtin {
+        triple: String,
+    },
+    Custom {
+        json: PathBuf,
+        triple: String,
+        orig_triple: String,
+    },
 }
 
 impl Target {
@@ -125,11 +125,16 @@ impl Target {
             if json.exists() {
                 let file_stem = match json.file_stem().and_then(|stem| stem.to_str()) {
                     Some(stem) => stem.into(),
-                    None => {
-                        bail!("target file name {:?} is empty or contains invalid unicode", json)
-                    }
+                    None => bail!(
+                        "target file name {:?} is empty or contains invalid unicode",
+                        json
+                    ),
                 };
-                return Ok(Some(Target::Custom { json, triple: file_stem, orig_triple: triple }))
+                return Ok(Some(Target::Custom {
+                    json,
+                    triple: file_stem,
+                    orig_triple: triple,
+                }));
             }
             let mut json = cd.path().join(&triple);
             json.set_extension("json");
@@ -172,7 +177,9 @@ impl Target {
     pub fn orig_triple(&self) -> &str {
         match *self {
             Target::Builtin { ref triple } => triple,
-            Target::Custom { ref orig_triple, .. } => orig_triple,
+            Target::Custom {
+                ref orig_triple, ..
+            } => orig_triple,
         }
     }
 

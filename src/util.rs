@@ -31,15 +31,13 @@ pub fn cp_r(src: &Path, dst: &Path) -> Result<()> {
         })?;
 
         let dst_file = dst.join(relative_path);
-        let metadata = e.metadata().chain_err(|| {
-            format!("Could not retrieve metadata of `{}`", e.path().display())
-        })?;
+        let metadata = e.metadata()
+            .chain_err(|| format!("Could not retrieve metadata of `{}`", e.path().display()))?;
 
         if metadata.is_dir() {
             // ensure the destination directory exists
-            fs::create_dir_all(&dst_file).chain_err(|| {
-                format!("Could not create directory `{}`", dst_file.display())
-            })?;
+            fs::create_dir_all(&dst_file)
+                .chain_err(|| format!("Could not create directory `{}`", dst_file.display()))?;
         } else {
             // else copy the file
             fs::copy(&src_file, &dst_file).chain_err(|| {
@@ -63,7 +61,9 @@ pub fn mkdir(path: &Path) -> Result<()> {
 pub fn parse(path: &Path) -> Result<Value> {
     Ok(Value::Table(Parser::new(&read(path)?)
         .parse()
-        .ok_or_else(|| format!("{} is not valid TOML", path.display()))?))
+        .ok_or_else(|| {
+            format!("{} is not valid TOML", path.display())
+        })?))
 }
 
 pub fn read(path: &Path) -> Result<String> {
