@@ -31,6 +31,8 @@ mod sysroot;
 mod util;
 mod xargo;
 
+const HELP: &str = include_str!("help.txt");
+
 // We use a different sysroot for Native compilation to avoid file locking
 //
 // Cross compilation requires `lib/rustlib/$HOST` to match `rustc`'s sysroot,
@@ -118,7 +120,10 @@ fn run() -> Result<Option<ExitStatus>> {
     let (command, args) = cli::args()?;
     match command {
         Command::Build => Ok(Some(build(args)?)),
-        Command::Help => unimplemented!(),
+        Command::Help => {
+            print!("{}", HELP);
+            Ok(None)
+        }
         Command::Version => {
             writeln!(
                 io::stdout(),
