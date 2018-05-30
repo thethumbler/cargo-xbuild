@@ -105,7 +105,7 @@ fn build_crate(
         }
     }
     cmd.arg("--manifest-path");
-    cmd.arg(td.join("Cargo.toml"));
+    cmd.arg(util::escape_argument_spaces(td.join("Cargo.toml").to_str().expect("This path doesn't contain valid UTF-8 characters")));
     cmd.args(&["--target", cmode.orig_triple()]);
 
     if verbose {
