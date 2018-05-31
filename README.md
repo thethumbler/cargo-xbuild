@@ -27,7 +27,18 @@ Instead of the "can't find crate for `core`" error you would get with a plain `c
 
 All additional arguments (e.g. `--release` or `--verbose`) are forwarded to `cargo build`.
 
-### Dev channel
+## Configuration
+
+To configure `cargo-xbuild` create a `package.metadata.cargo-xbuild` table in your `Cargo.toml`. The following options are available:
+
+```toml
+[package.metadata.cargo-xbuild]
+memcpy = true
+```
+
+- The `memcpy` flag defines whether the `mem` feature of the `compiler_builtins` crate should be activated. Turning this flag off allows to specify own versions of the `memcpy`, `memset` etc. functions.
+
+## Dev channel
 
 If you want to use a local Rust source instead of `rust-src` rustup component, you can set the `XARGO_RUST_SRC` environment variable.
 

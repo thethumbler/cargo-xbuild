@@ -16,6 +16,7 @@ use rustc::{Src, Sysroot, Target};
 use util;
 use xargo::Home;
 use cargo;
+use config::Config;
 
 #[cfg(feature = "dev")]
 fn profile() -> &'static str {
@@ -31,6 +32,7 @@ fn build(
     cmode: &CompilationMode,
     ctoml: &cargo::Toml,
     home: &Home,
+    config: &Config,
     src: &Src,
     hash: u64,
     verbose: bool,
@@ -43,7 +45,7 @@ fn build(
     util::mkdir(&dst)?;
 
     build_libcore(cmode, &ctoml, home, src, &dst, verbose)?;
-    build_libcompiler_builtins(cmode, &ctoml, home, src, &dst, verbose)?;
+    build_libcompiler_builtins(cmode, &ctoml, home, src, &dst, config, verbose)?;
     build_liballoc(cmode, &ctoml, home, src, &dst, verbose)?;
 
     // Create hash file
@@ -165,6 +167,7 @@ fn build_libcompiler_builtins(
     home: &Home,
     src: &Src,
     dst: &Path,
+    config: &Config,
     verbose: bool,
 ) -> Result<()> {
     const TOML: &'static str = r#"
@@ -182,13 +185,17 @@ version = "0.0.0"
         .to_string();
     let mut compiler_builtin_dep = Table::new();
     compiler_builtin_dep.insert("path".to_owned(), Value::String(path));
+
+    let mut features = vec![
+            Value::String("compiler-builtins".to_owned()),
+        ];
+    if config.memcpy {
+        features.push(Value::String("mem".to_owned()));
+    }
     compiler_builtin_dep.insert("default-features".to_owned(), Value::Boolean(false));
     compiler_builtin_dep.insert(
         "features".to_owned(),
-        Value::Array(vec![
-            Value::String("mem".to_owned()),
-            Value::String("compiler-builtins".to_owned()),
-        ]),
+        Value::Array(features),
     );
     let mut deps = Table::new();
     deps.insert(
@@ -255,6 +262,7 @@ fn hash(
     rustflags: &Rustflags,
     ctoml: &cargo::Toml,
     meta: &VersionMeta,
+    config: &Config,
 ) -> Result<u64> {
     let mut hasher = DefaultHasher::new();
 
@@ -270,6 +278,8 @@ fn hash(
         hash.hash(&mut hasher);
     }
 
+    config.hash(&mut hasher);
+
     Ok(hasher.finish())
 }
 
@@ -277,6 +287,7 @@ pub fn update(
     cmode: &CompilationMode,
     home: &Home,
     root: &Path,
+    config: &Config,
     rustflags: &Rustflags,
     meta: &VersionMeta,
     src: &Src,
@@ -285,10 +296,10 @@ pub fn update(
 ) -> Result<()> {
     let ctoml = cargo::toml(root)?;
 
-    let hash = hash(cmode, rustflags, &ctoml, meta)?;
+    let hash = hash(cmode, rustflags, &ctoml, meta, config)?;
 
     if old_hash(cmode, home)? != Some(hash) {
-        build(cmode, &ctoml, home, src, hash, verbose)?;
+        build(cmode, &ctoml, home, config, src, hash, verbose)?;
     }
 
     // copy host artifacts into the sysroot, if necessary

@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+- Make behavior configurable through a `package.metadata.cargo-xbuild` table in the `Cargo.toml`
+  - Add a `memcpy` flags that specifies whether the `compiler_builtins` crate should be built with the `mem` feature enabled. Defaults to true.
 
 ## [v0.4.2] - 2018-05-07
 - Implement `--help`

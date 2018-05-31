@@ -6,6 +6,8 @@ extern crate fs2;
 extern crate libc;
 extern crate rustc_version;
 extern crate serde_json;
+#[macro_use]
+extern crate serde_derive;
 extern crate tempdir;
 extern crate toml;
 extern crate walkdir;
@@ -30,6 +32,7 @@ mod rustc;
 mod sysroot;
 mod util;
 mod xargo;
+mod config;
 
 const HELP: &str = include_str!("help.txt");
 
@@ -145,6 +148,8 @@ fn build(args: cli::Args) -> Result<(ExitStatus)> {
         cargo_metadata::metadata(args.manifest_path()).expect("cargo metadata invocation failed");
     let root = Path::new(&metadata.workspace_root);
     let target_directory = Path::new(&metadata.target_directory);
+    let crate_config = config::Config::from_metadata(&metadata)
+        .map_err(|_| "parsing package.metadata.cargo-xbuild section failed")?;
 
     // We can't build sysroot with stable or beta due to unstable features
     let sysroot = rustc::sysroot(verbose)?;
@@ -195,6 +200,7 @@ fn build(args: cli::Args) -> Result<(ExitStatus)> {
             &cmode,
             &home,
             &root,
+            &crate_config,
             &rustflags,
             &meta,
             &src,
