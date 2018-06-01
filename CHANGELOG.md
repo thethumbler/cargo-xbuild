@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.4.3] - 2018-06-01
 - Add config option `sysroot_path` that defines where the sysroot should be placed. Defaults to the `target/sysroot`.
 
 ## [0.4.3] - 2018-05-31
