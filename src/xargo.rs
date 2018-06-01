@@ -1,6 +1,6 @@
 use std::path::{Display, PathBuf};
 use std::process::{Command, ExitStatus};
-use std::mem;
+use std::{fs, mem};
 use std::io::{self, Write};
 use std::path::Path;
 
@@ -12,6 +12,7 @@ use cli::Args;
 use errors::*;
 use extensions::CommandExt;
 use flock::{FileLock, Filesystem};
+use config::Config;
 
 pub fn run(
     args: &Args,
@@ -68,11 +69,18 @@ impl Home {
     }
 }
 
-pub fn home(target_directory: &Path) -> Result<Home> {
-    let mut p = PathBuf::from(target_directory);
-    p.push("sysroot");
+pub fn home(target_directory: &Path, config: &Config) -> Result<Home> {
+    let path = if let Some(ref p) = config.sysroot_path {
+        let path = Path::new(p);
+        fs::create_dir_all(&path).map_err(|_| String::from("Could not create sysroot folder"))?;
+        path.canonicalize().map_err(|_| String::from("Invalid sysroot path"))?
+    } else {
+        let mut p = PathBuf::from(target_directory);
+        p.push("sysroot");
+        p
+    };
 
     Ok(Home {
-        path: Filesystem::new(p),
+        path: Filesystem::new(path),
     })
 }

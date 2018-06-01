@@ -34,9 +34,11 @@ To configure `cargo-xbuild` create a `package.metadata.cargo-xbuild` table in yo
 ```toml
 [package.metadata.cargo-xbuild]
 memcpy = true
+sysroot_path = "target/sysroot"
 ```
 
 - The `memcpy` flag defines whether the `mem` feature of the `compiler_builtins` crate should be activated. Turning this flag off allows to specify own versions of the `memcpy`, `memset` etc. functions.
+- The `sysroot_path` flag specifies the directory where the sysroot should be placed.
 
 ## Dev channel
 

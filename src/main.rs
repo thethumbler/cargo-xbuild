@@ -193,7 +193,7 @@ fn build(args: cli::Args) -> Result<(ExitStatus)> {
     };
 
     if let Some(cmode) = cmode {
-        let home = xargo::home(target_directory)?;
+        let home = xargo::home(target_directory, &crate_config)?;
         let rustflags = cargo::rustflags(config.as_ref(), cmode.triple())?;
 
         sysroot::update(

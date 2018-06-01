@@ -4,12 +4,14 @@ use cargo_metadata;
 #[derive(Debug, Deserialize, Hash)]
 pub struct Config {
     pub memcpy: bool,
+    pub sysroot_path: Option<String>,
 }
 
 impl Default for Config {
     fn default() -> Self {
         Config {
             memcpy: true,
+            sysroot_path: None,
         }
     }
 }

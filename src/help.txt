@@ -9,3 +9,13 @@ OPTIONS:
 
     Any additional options are directly passed to `cargo build` (see
     `cargo build --help` for possible options).
+
+CONFIGURATION:
+    Configuration is possible through a `package.metadata.cargo-xbuild` table
+    in your `Cargo.toml`:
+
+    [package.metadata.cargo-xbuild]
+    memcpy = true
+    sysroot_path = "target/sysroot"
+
+    See README.md for a description of these flags.

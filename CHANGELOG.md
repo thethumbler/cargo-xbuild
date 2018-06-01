@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+- Add config option `sysroot_path` that defines where the sysroot should be placed. Defaults to the `target/sysroot`.
 
 ## [0.4.3] - 2018-05-31
 - Make behavior configurable through a `package.metadata.cargo-xbuild` table in the `Cargo.toml`
