@@ -5,10 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [0.4.4] - 2018-06-01
+## [v0.4.4] - 2018-06-01
 - Add config option `sysroot_path` that defines where the sysroot should be placed. Defaults to the `target/sysroot`.
 
-## [0.4.3] - 2018-05-31
+## [v0.4.3] - 2018-05-31
 - Make behavior configurable through a `package.metadata.cargo-xbuild` table in the `Cargo.toml`
   - Add a `memcpy` flags that specifies whether the `compiler_builtins` crate should be built with the `mem` feature enabled. Defaults to true.
 
