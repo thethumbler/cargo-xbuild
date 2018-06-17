@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.4.5] - 2018-06-17
+- Add support for spaces in the sysroot path on Windows
+
 ## [v0.4.4] - 2018-06-01
 - Add config option `sysroot_path` that defines where the sysroot should be placed. Defaults to the `target/sysroot`.
 
@@ -346,7 +349,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.4...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.5...HEAD
+[v0.4.5]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.4...v0.4.5
 [v0.4.4]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.3...v0.4.4
 [v0.4.3]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.2...v0.4.3
 [v0.4.2]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.1...v0.4.2
