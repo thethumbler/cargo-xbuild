@@ -147,7 +147,6 @@ fn build(args: cli::Args) -> Result<(ExitStatus)> {
     let metadata =
         cargo_metadata::metadata(args.manifest_path()).expect("cargo metadata invocation failed");
     let root = Path::new(&metadata.workspace_root);
-    let target_directory = Path::new(&metadata.target_directory);
     let crate_config = config::Config::from_metadata(&metadata)
         .map_err(|_| "parsing package.metadata.cargo-xbuild section failed")?;
 
@@ -193,7 +192,7 @@ fn build(args: cli::Args) -> Result<(ExitStatus)> {
     };
 
     if let Some(cmode) = cmode {
-        let home = xargo::home(target_directory, &crate_config)?;
+        let home = xargo::home(root, &crate_config)?;
         let rustflags = cargo::rustflags(config.as_ref(), cmode.triple())?;
 
         sysroot::update(

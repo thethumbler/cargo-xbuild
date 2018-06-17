@@ -1,6 +1,6 @@
 use std::path::{Display, PathBuf};
 use std::process::{Command, ExitStatus};
-use std::{fs, mem};
+use std::mem;
 use std::io::{self, Write};
 use std::path::Path;
 
@@ -69,16 +69,9 @@ impl Home {
     }
 }
 
-pub fn home(target_directory: &Path, config: &Config) -> Result<Home> {
-    let path = if let Some(ref p) = config.sysroot_path {
-        let path = Path::new(p);
-        fs::create_dir_all(&path).map_err(|_| String::from("Could not create sysroot folder"))?;
-        path.canonicalize().map_err(|_| String::from("Invalid sysroot path"))?
-    } else {
-        let mut p = PathBuf::from(target_directory);
-        p.push("sysroot");
-        p
-    };
+pub fn home(root: &Path, config: &Config) -> Result<Home> {
+    let mut path = PathBuf::from(root);
+    path.push(&config.sysroot_path);
 
     Ok(Home {
         path: Filesystem::new(path),
