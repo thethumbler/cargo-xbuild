@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.4.7] - 2018-06-17
+- Update configuration parsing to remove special treatment for `sysroot_path`
+
 ## [v0.4.6] - 2018-06-17
 - Unset RUSTFLAGS for sysroot building to support using the `--emit-link` flag.
 
@@ -352,7 +355,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.6...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.7...HEAD
+[v0.4.7]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.6...v0.4.7
 [v0.4.6]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.5...v0.4.6
 [v0.4.5]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.4...v0.4.5
 [v0.4.4]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.3...v0.4.4
