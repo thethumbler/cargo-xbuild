@@ -25,6 +25,7 @@ use rustc::Target;
 
 mod cargo;
 mod cli;
+mod config;
 mod errors;
 mod extensions;
 mod flock;
@@ -32,7 +33,6 @@ mod rustc;
 mod sysroot;
 mod util;
 mod xargo;
-mod config;
 
 const HELP: &str = include_str!("help.txt");
 

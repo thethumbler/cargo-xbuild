@@ -1,22 +1,22 @@
 use std::collections::hash_map::DefaultHasher;
+use std::env;
 use std::hash::{Hash, Hasher};
 use std::path::Path;
 use std::process::Command;
-use std::env;
 
 use rustc_version::VersionMeta;
 use tempdir::TempDir;
 use toml::{Table, Value};
 
-use CompilationMode;
+use cargo;
 use cargo::Rustflags;
+use config::Config;
 use errors::*;
 use extensions::CommandExt;
 use rustc::{Src, Sysroot, Target};
 use util;
 use xargo::Home;
-use cargo;
-use config::Config;
+use CompilationMode;
 
 #[cfg(feature = "dev")]
 fn profile() -> &'static str {
@@ -187,17 +187,12 @@ version = "0.0.0"
     let mut compiler_builtin_dep = Table::new();
     compiler_builtin_dep.insert("path".to_owned(), Value::String(path));
 
-    let mut features = vec![
-            Value::String("compiler-builtins".to_owned()),
-        ];
+    let mut features = vec![Value::String("compiler-builtins".to_owned())];
     if config.memcpy {
         features.push(Value::String("mem".to_owned()));
     }
     compiler_builtin_dep.insert("default-features".to_owned(), Value::Boolean(false));
-    compiler_builtin_dep.insert(
-        "features".to_owned(),
-        Value::Array(features),
-    );
+    compiler_builtin_dep.insert("features".to_owned(), Value::Array(features));
     let mut deps = Table::new();
     deps.insert(
         "compiler_builtins".to_owned(),

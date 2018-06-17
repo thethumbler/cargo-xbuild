@@ -6,13 +6,13 @@ use std::process::Command;
 
 pub use rustc_version::version_meta as version;
 
-use serde_json::Value;
 use serde_json;
+use serde_json::Value;
 use walkdir::WalkDir;
 
-use CurrentDirectory;
 use errors::*;
 use extensions::CommandExt;
+use CurrentDirectory;
 use {rustc, util};
 
 fn command() -> Command {

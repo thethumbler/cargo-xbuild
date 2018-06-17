@@ -6,8 +6,8 @@ use std::io::Write;
 use std::path::{Display, Path, PathBuf};
 use std::{fs, io};
 
-use fs2::FileExt;
 use fs2;
+use fs2::FileExt;
 
 #[derive(PartialEq)]
 enum State {

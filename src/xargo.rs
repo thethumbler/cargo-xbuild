@@ -1,18 +1,18 @@
+use std::io::{self, Write};
+use std::mem;
+use std::path::Path;
 use std::path::{Display, PathBuf};
 use std::process::{Command, ExitStatus};
-use std::mem;
-use std::io::{self, Write};
-use std::path::Path;
 
 use rustc_version::VersionMeta;
 
-use CompilationMode;
 use cargo::Rustflags;
 use cli::Args;
+use config::Config;
 use errors::*;
 use extensions::CommandExt;
 use flock::{FileLock, Filesystem};
-use config::Config;
+use CompilationMode;
 
 pub fn run(
     args: &Args,
