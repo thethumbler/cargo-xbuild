@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.4.6] - 2018-06-17
+- Unset RUSTFLAGS for sysroot building to support using the `--emit-link` flag.
+
 ## [v0.4.5] - 2018-06-17
 - Add support for spaces in the sysroot path on Windows
 
@@ -349,7 +352,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.5...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.6...HEAD
+[v0.4.6]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.5...v0.4.6
 [v0.4.5]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.4...v0.4.5
 [v0.4.4]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.3...v0.4.4
 [v0.4.3]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.2...v0.4.3
