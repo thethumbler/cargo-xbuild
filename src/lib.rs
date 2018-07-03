@@ -34,8 +34,6 @@ mod sysroot;
 mod util;
 mod xargo;
 
-const HELP: &str = include_str!("help.txt");
-
 // We use a different sysroot for Native compilation to avoid file locking
 //
 // Cross compilation requires `lib/rustlib/$HOST` to match `rustc`'s sysroot,
@@ -84,12 +82,12 @@ impl CompilationMode {
     }
 }
 
-pub fn main() {
+pub fn main_common(command_name: &str) {
     fn show_backtrace() -> bool {
         env::var("RUST_BACKTRACE").as_ref().map(|s| &s[..]) == Ok("1")
     }
 
-    match run() {
+    match run(command_name) {
         Err(e) => {
             let stderr = io::stderr();
             let mut stderr = stderr.lock();
@@ -117,14 +115,14 @@ pub fn main() {
     }
 }
 
-fn run() -> Result<Option<ExitStatus>> {
+fn run(command_name: &str) -> Result<Option<ExitStatus>> {
     use cli::Command;
 
-    let (command, args) = cli::args()?;
+    let (command, args) = cli::args(command_name)?;
     match command {
-        Command::Build => Ok(Some(build(args)?)),
+        Command::Build => Ok(Some(build(args, command_name)?)),
         Command::Help => {
-            print!("{}", HELP);
+            print!(include_str!("help.txt"), command_name = command_name);
             Ok(None)
         }
         Command::Version => {
@@ -138,7 +136,7 @@ fn run() -> Result<Option<ExitStatus>> {
     }
 }
 
-fn build(args: cli::Args) -> Result<(ExitStatus)> {
+fn build(args: cli::Args, command_name: &str) -> Result<(ExitStatus)> {
     let verbose = args.verbose();
     let meta = rustc::version();
     let cd = CurrentDirectory::get()?;
@@ -206,7 +204,7 @@ fn build(args: cli::Args) -> Result<(ExitStatus)> {
             &sysroot,
             verbose,
         )?;
-        return xargo::run(&args, &cmode, rustflags, &home, &meta, verbose);
+        return xargo::run(&args, &cmode, rustflags, &home, &meta, command_name, verbose);
     }
 
     cargo::run(&args, verbose)

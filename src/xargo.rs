@@ -20,10 +20,11 @@ pub fn run(
     rustflags: Rustflags,
     home: &Home,
     meta: &VersionMeta,
+    command_name: &str,
     verbose: bool,
 ) -> Result<ExitStatus> {
     let mut cmd = Command::new("cargo");
-    cmd.arg("build");
+    cmd.arg(command_name);
     cmd.args(args.all());
 
     let flags = rustflags.for_xargo(home);
