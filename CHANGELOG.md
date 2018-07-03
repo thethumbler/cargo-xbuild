@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.4.8] - 2018-07-03
+- Add `cargo xrustc` command for invoking `cargo rustc`
+
 ## [v0.4.7] - 2018-06-17
 - Update configuration parsing to remove special treatment for `sysroot_path`
 
@@ -355,7 +358,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.7...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.8...HEAD
+[v0.4.8]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.7...v0.4.8
 [v0.4.7]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.6...v0.4.7
 [v0.4.6]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.5...v0.4.6
 [v0.4.5]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.4...v0.4.5
