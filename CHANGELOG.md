@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.4.9] - 2018-08-20
+- Add `cargo xclippy` command for invoking `cargo clippy`
+
 ## [v0.4.8] - 2018-07-03
 - Add `cargo xrustc` command for invoking `cargo rustc`
 
@@ -358,7 +361,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.8...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.9...HEAD
+[v0.4.9]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.8...v0.4.9
 [v0.4.8]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.7...v0.4.8
 [v0.4.7]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.6...v0.4.7
 [v0.4.6]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.5...v0.4.6
