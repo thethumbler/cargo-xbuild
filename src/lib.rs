@@ -136,7 +136,7 @@ fn run(command_name: &str) -> Result<Option<ExitStatus>> {
     }
 }
 
-fn build(args: cli::Args, command_name: &str) -> Result<(ExitStatus)> {
+fn build(args: cli::Args, command_name: &str) -> Result<ExitStatus> {
     let verbose = args.verbose();
     let meta = rustc::version();
     let cd = CurrentDirectory::get()?;
@@ -161,13 +161,10 @@ fn build(args: cli::Args, command_name: &str) -> Result<(ExitStatus)> {
             sysroot.src()?
         },
         Channel::Stable | Channel::Beta => {
-            writeln!(
-                io::stderr(),
-                "WARNING: the sysroot can't be built for the {:?} channel. \
+            bail!(
+                "The sysroot can't be built for the {:?} channel. \
                  Switch to nightly.",
-                meta.channel
-            ).ok();
-            return cargo::run(&args, verbose);
+                meta.channel);
         }
     };
 

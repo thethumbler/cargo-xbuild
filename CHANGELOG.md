@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.5.0] - 2018-10-01
+- Error instead of warn when `cargo xbuild` is executed with a stable or beta compiler.
+
 ## [v0.4.9] - 2018-08-20
 - Add `cargo xclippy` command for invoking `cargo clippy`
 
@@ -361,7 +364,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.9...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.0...HEAD
+[v0.5.0]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.9...v0.5.0
 [v0.4.9]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.8...v0.4.9
 [v0.4.8]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.7...v0.4.8
 [v0.4.7]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.6...v0.4.7
