@@ -136,7 +136,7 @@ fn run(command_name: &str) -> Result<Option<ExitStatus>> {
     }
 }
 
-fn build(args: cli::Args, command_name: &str) -> Result<(ExitStatus)> {
+fn build(args: cli::Args, command_name: &str) -> Result<ExitStatus> {
     let verbose = args.verbose();
     let meta = rustc::version();
     let cd = CurrentDirectory::get()?;
