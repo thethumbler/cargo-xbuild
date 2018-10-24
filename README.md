@@ -51,6 +51,49 @@ $ export XARGO_RUST_SRC=/path/to/rust/src
 $ cargo xbuild --target msp430-none-elf.json
 ```
 
+## Using on Android
+
+It's possible to run cargo-xbuild on your Android phone:
+
+### Install Termux and Nightly Rustc
+
+- Install [termux](https://play.google.com/store/apps/details?id=com.termux)
+- Install fish shell and set as default (optional): `pkg install fish; chsh -s fish; fish`
+- Install some basic tools: `pkg install wget tar`
+- Add the [community repository by its-pointless](https://wiki.termux.com/wiki/Package_Management#By_its-pointless_.28live_the_dream.29:): `wget https://its-pointless.github.io/setup-pointless-repo.sh; bash setup-pointless-repo.sh`
+- Install rust nightly: `pkg install rustc cargo rustc-nightly`
+- Prepend the nightly rustc path to your `$PATH` in order to use nightly (fish syntax): `set -U fish_user_paths $PREFIX/opt/rust-nightly/bin/ $fish_user_paths`
+- `rustc --version` should now return a nightly version
+
+### (Optional) Install Git and Clone your Repository
+
+- Install git: `pkg install git`
+- Clone a repository of your choice: `git clone https://github.com/phil-opp/blog_os.git`
+
+### Install Xbuild
+
+- Install cargo-xbuild: `cargo install cargo-xbuild`
+- Add the cargo bin directory to your `$PATH` (fish syntax): `set -U fish_user_paths ~/.cargo/bin/ $fish_user_paths`
+- Now `cargo xbuild` should be available.
+
+It does not work yet because it needs access to the rust source code. By default it tries to use rustup for this, but we have no rustup support so we need a different way.
+
+### Providing the Rust Source Code
+
+The Rust source code corresponding to our installed nightly is available in the `its-pointless` repository:
+
+- Download it: `wget https://github.com/its-pointless/its-pointless.github.io/raw/master/rust-src-nightly.tar.xz`
+- Extract it: `tar xf rust-src-nightly.tar.xz`
+- Set the `XARGO_RUST_SRC` environment variable to tell cargo-xbuild the source path (fish syntax): `set -Ux XARGO_RUST_SRC ~/rust-src-nightly/rust-src/lib/rustlib/src/rust/src`
+
+Now cargo-xbuild should no longer complain about a missing `rust-src` component. However it will throw an I/O error after building the sysroot. The problem is that the downloaded Rust source code has a different structure than the source provided by rustup. We can fix this by adding a symbolic link:
+
+```
+ln -s ~/../usr/opt/rust-nightly/bin ~/../usr/opt/rust-nightly/lib/rustlib/aarch64-linux-android/bin
+```
+
+Now `cargo xbuild --target your-target.json` should work!
+
 ## License
 
 Licensed under either of
