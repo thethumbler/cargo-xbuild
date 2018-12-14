@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.5.1] - 2018-12-14
+- Fix the sysroot build: the compiler_builtins crate now lives on crates.io
+
 ## [v0.5.0] - 2018-10-01
 - Error instead of warn when `cargo xbuild` is executed with a stable or beta compiler.
 
@@ -364,7 +367,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.1...HEAD
+[v0.5.1]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.0...v0.5.1
 [v0.5.0]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.9...v0.5.0
 [v0.4.9]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.8...v0.4.9
 [v0.4.8]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.7...v0.4.8
