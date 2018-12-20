@@ -149,13 +149,13 @@ version = "0.1.0"
     let mut stoml = TOML.to_owned();
 
     if config.memcpy {
-        stoml.push_str("features = [\"mem\", \"core\"]\n");
+        stoml.push_str("features = ['mem', 'core']\n");
     } else {
-        stoml.push_str("features = [\"rustc-std-workspace-core\"]\n");
+        stoml.push_str("features = ['rustc-std-workspace-core']\n");
     }
 
     stoml.push_str("[dependencies.core]\n");
-    stoml.push_str(&format!("path = \"{}\"\n", src.path().join("libcore").display()));
+    stoml.push_str(&format!("path = '{}'\n", src.path().join("libcore").display()));
 
     stoml.push_str("[patch.crates-io.rustc-std-workspace-core]\n");
     stoml.push_str(&format!("path = '{}'\n",
