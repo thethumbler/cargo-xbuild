@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.5.3] - 2018-12-21
+- Fix a bug introduced in 0.5.2: Backslash escaped quotes don't work on Windows, use single quotes instead
+
 ## [v0.5.2] - 2018-12-20
 - Use the official approach for building the sysroot to avoid overwriting RUSTFLAGS ([#25](https://github.com/rust-osdev/cargo-xbuild/pull/25))
 
@@ -370,7 +373,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.2...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.3...HEAD
+[v0.5.2]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.2...v0.5.3
 [v0.5.2]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.1...v0.5.2
 [v0.5.1]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.0...v0.5.1
 [v0.5.0]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.4.9...v0.5.0
