@@ -143,6 +143,7 @@ fn build_liballoc(
 authors = ["The Rust Project Developers"]
 name = "alloc"
 version = "0.0.0"
+edition = "2018"
 
 [dependencies.compiler_builtins]
 version = "0.1.0"
