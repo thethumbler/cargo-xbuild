@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [v0.5.4] - 2019-02-04
+## [v0.5.5] - 2019-02-04
 - Fix build on latest nightly: `liballoc` was updated to Rust 2018
 
 ## [v0.5.4] - 2019-01-17
