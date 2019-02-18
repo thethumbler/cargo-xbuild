@@ -15,6 +15,8 @@ Cargo-xbuild is a wrapper for `cargo build`, which cross compiles the sysroot cr
 $ cargo install cargo-xbuild
 ```
 
+Note: The latest version of `cargo-xbuild` supports all nightlies after 2019-02-04. If you are on an older nightly, you need to install version 0.5.4: `cargo install cargo-xbuild --version 0.5.4`.
+
 ## Usage
 
 Just use `cargo xbuild` instead of `cargo build` when cross-compiling for a custom target.
