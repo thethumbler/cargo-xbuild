@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.5.6] - 2019-03-23
+
+- Add `cargo xrun` command for invoking `cargo run`
+
 ## [v0.5.5] - 2019-02-04
 - Fix build on latest nightly: `liballoc` was updated to Rust 2018
 
@@ -379,7 +383,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.5...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.6...HEAD
+[v0.5.6]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.5...v0.5.6
 [v0.5.5]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.4...v0.5.5
 [v0.5.4]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.3...v0.5.4
 [v0.5.3]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.2...v0.5.3
