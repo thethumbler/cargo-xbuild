@@ -40,6 +40,7 @@ mod xargo;
 // whereas Native compilation wants to use a custom `lib/rustlib/$HOST`. If each
 // mode has its own sysroot then we avoid sharing that directory and thus file
 // locking it.
+#[derive(Debug)]
 pub enum CompilationMode {
     Cross(Target),
     Native(String),
@@ -177,7 +178,7 @@ fn build(args: cli::Args, command_name: &str) -> Result<ExitStatus> {
     } else {
         if let Some(ref config) = config {
             if let Some(triple) = config.target()? {
-                Target::new(triple, &cd, verbose)?.map(CompilationMode::Cross)
+                Target::new(&triple, &cd, verbose)?.map(CompilationMode::Cross)
             } else {
                 Some(CompilationMode::Native(meta.host.clone()))
             }

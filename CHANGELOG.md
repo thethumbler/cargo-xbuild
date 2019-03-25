@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 - Respect `CARGO` environment variable
+- Canonicalize default specified in .cargo/config files if they end with `.json`
 
 ## [v0.5.6] - 2019-03-23
 

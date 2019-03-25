@@ -1,6 +1,6 @@
 use std::collections::BTreeMap;
 use std::hash::{Hash, Hasher};
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::process::{Command, ExitStatus};
 use std::{env, fmt};
 
@@ -129,16 +129,30 @@ pub fn run(args: &Args, verbose: bool) -> Result<ExitStatus> {
         .run_and_get_status(verbose)
 }
 
+#[derive(Debug)]
 pub struct Config {
+    parent_path: PathBuf,
     table: Value,
 }
 
 impl Config {
-    pub fn target(&self) -> Result<Option<&str>> {
+    pub fn target(&self) -> Result<Option<String>> {
         if let Some(v) = self.table.lookup("build.target") {
-            Ok(Some(v.as_str().ok_or_else(|| {
+            let target = v.as_str().ok_or_else(|| {
                 format!(".cargo/config: build.target must be a string")
-            })?))
+            })?;
+            if target.ends_with(".json") {
+                let target_path = self.parent_path.join(target);
+                let canonicalized = target_path.canonicalize().map_err(|err| {
+                    format!("target JSON file {} does not exist: {}", target_path.display(), err)
+                })?;
+                let as_string = canonicalized.into_os_string().into_string().map_err(|err| {
+                    format!("target path not valid utf8: {:?}", err)
+                })?;
+                Ok(Some(as_string))
+            } else {
+                Ok(Some(target.to_owned()))
+            }
         } else {
             Ok(None)
         }
@@ -150,6 +164,7 @@ pub fn config() -> Result<Option<Config>> {
 
     if let Some(p) = util::search(&cd, ".cargo/config") {
         Ok(Some(Config {
+            parent_path: p.to_owned(),
             table: util::parse(&p.join(".cargo/config"))?,
         }))
     } else {
