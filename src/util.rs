@@ -31,7 +31,8 @@ pub fn cp_r(src: &Path, dst: &Path) -> Result<()> {
         })?;
 
         let dst_file = dst.join(relative_path);
-        let metadata = e.metadata()
+        let metadata = e
+            .metadata()
             .chain_err(|| format!("Could not retrieve metadata of `{}`", e.path().display()))?;
 
         if metadata.is_dir() {

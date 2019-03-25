@@ -170,13 +170,12 @@ fn acquire(
     match try() {
         Ok(_) => return Ok(()),
         #[cfg(target_os = "macos")]
-        Err(ref e) if e.raw_os_error() == Some(::libc::ENOTSUP) =>
-        {
-            return Ok(())
+        Err(ref e) if e.raw_os_error() == Some(::libc::ENOTSUP) => return Ok(()),
+        Err(e) => {
+            if e.raw_os_error() != fs2::lock_contended_error().raw_os_error() {
+                return Err(e);
+            }
         }
-        Err(e) => if e.raw_os_error() != fs2::lock_contended_error().raw_os_error() {
-            return Err(e);
-        },
     }
 
     writeln!(
@@ -184,7 +183,8 @@ fn acquire(
         "{:>12} waiting for file lock on {}",
         "Blocking",
         msg
-    ).ok();
+    )
+    .ok();
 
     block()
 }

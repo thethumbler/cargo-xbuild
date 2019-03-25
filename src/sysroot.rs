@@ -1,10 +1,10 @@
 use std::collections::hash_map::DefaultHasher;
 use std::env;
 use std::hash::{Hash, Hasher};
-use std::path::Path;
-use std::process::Command;
 use std::io;
 use std::io::Write;
+use std::path::Path;
+use std::process::Command;
 
 use rustc_version::VersionMeta;
 use tempdir::TempDir;
@@ -159,11 +159,16 @@ version = "0.1.0"
     }
 
     stoml.push_str("[dependencies.core]\n");
-    stoml.push_str(&format!("path = '{}'\n", src.path().join("libcore").display()));
+    stoml.push_str(&format!(
+        "path = '{}'\n",
+        src.path().join("libcore").display()
+    ));
 
     stoml.push_str("[patch.crates-io.rustc-std-workspace-core]\n");
-    stoml.push_str(&format!("path = '{}'\n",
-        src.path().join("tools/rustc-std-workspace-core").display()));
+    stoml.push_str(&format!(
+        "path = '{}'\n",
+        src.path().join("tools/rustc-std-workspace-core").display()
+    ));
 
     let path = src.path().join("liballoc/lib.rs").display().to_string();
     let mut map = Table::new();
@@ -269,8 +274,15 @@ pub fn update(
             .join("lib"),
         &dst,
     ) {
-        Ok(()) => {},
-        Err(e) => { writeln!(stderr, "Unable to copy the directory 'lib' from sysroot: {}", e).ok(); }
+        Ok(()) => {}
+        Err(e) => {
+            writeln!(
+                stderr,
+                "Unable to copy the directory 'lib' from sysroot: {}",
+                e
+            )
+            .ok();
+        }
     };
 
     let bin_dst = lock.parent().join("bin");
@@ -283,8 +295,15 @@ pub fn update(
             .join("bin"),
         &bin_dst,
     ) {
-        Ok(()) => {},
-        Err(e) => { writeln!(stderr, "Unable to copy the directory 'bin' from sysroot: {}", e).ok(); }
+        Ok(()) => {}
+        Err(e) => {
+            writeln!(
+                stderr,
+                "Unable to copy the directory 'bin' from sysroot: {}",
+                e
+            )
+            .ok();
+        }
     };
 
     util::write(&hfile, hash)?;

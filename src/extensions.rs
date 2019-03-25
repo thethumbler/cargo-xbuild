@@ -42,7 +42,8 @@ impl CommandExt for Command {
             writeln!(io::stderr(), "+ {:?}", self).ok();
         }
 
-        let out = self.output()
+        let out = self
+            .output()
             .chain_err(|| format!("couldn't execute `{:?}`", self))?;
 
         if out.status.success() {
