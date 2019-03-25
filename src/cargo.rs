@@ -122,7 +122,8 @@ fn flags(config: Option<&Config>, target: &str, tool: &str) -> Result<Vec<String
 }
 
 pub fn run(args: &Args, verbose: bool) -> Result<ExitStatus> {
-    Command::new("cargo")
+    let cargo = std::env::var("CARGO").unwrap_or("cargo".to_string());
+    Command::new(cargo)
         .arg("build")
         .args(args.all())
         .run_and_get_status(verbose)

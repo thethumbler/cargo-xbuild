@@ -23,7 +23,8 @@ pub fn run(
     command_name: &str,
     verbose: bool,
 ) -> Result<ExitStatus> {
-    let mut cmd = Command::new("cargo");
+    let cargo = std::env::var("CARGO").unwrap_or("cargo".to_string());
+    let mut cmd = Command::new(cargo);
     cmd.arg(command_name);
     cmd.args(args.all());
 
