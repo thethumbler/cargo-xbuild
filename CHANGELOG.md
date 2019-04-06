@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Add `cargo xcheck`/`cargo xtest` commands for invoking `cargo check`/`cargo test`.
+
 ## [v0.5.7] - 2019-03-27
 
 - Respect `CARGO` environment variable
