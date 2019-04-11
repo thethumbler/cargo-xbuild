@@ -5,13 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-<<<<<<< Updated upstream
-- Add `cargo xcheck`/`cargo xtest` commands for invoking `cargo check`/`cargo test`.
-=======
 ## [v0.5.8] - 2019-04-11
 
-- Add a `cargo xtest` command for invoking `cargo test`.
->>>>>>> Stashed changes
+- Add `cargo xcheck`/`cargo xtest` commands for invoking `cargo check`/`cargo test`.
 
 ## [v0.5.7] - 2019-03-27
 
