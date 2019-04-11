@@ -5,7 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+<<<<<<< Updated upstream
 - Add `cargo xcheck`/`cargo xtest` commands for invoking `cargo check`/`cargo test`.
+=======
+## [v0.5.8] - 2019-04-11
+
+- Add a `cargo xtest` command for invoking `cargo test`.
+>>>>>>> Stashed changes
 
 ## [v0.5.7] - 2019-03-27
 
@@ -391,8 +397,9 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.7...HEAD
-[v0.5.6]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.6...v0.5.7
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.8...HEAD
+[v0.5.8]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.7...v0.5.8
+[v0.5.7]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.6...v0.5.7
 [v0.5.6]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.5...v0.5.6
 [v0.5.5]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.4...v0.5.5
 [v0.5.4]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.3...v0.5.4
