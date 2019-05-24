@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.5.9] - 2019-05-24
+
 - Make backtraces optional through a new opt-in `backtrace` feature. This removes the dependency on `cc` by default, which has special compile-time requirements.
 
 ## [v0.5.8] - 2019-04-11
@@ -395,7 +397,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.8...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.9...HEAD
+[v0.5.9]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.8...v0.5.9
 [v0.5.8]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.7...v0.5.8
 [v0.5.7]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.6...v0.5.7
 [v0.5.6]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.5...v0.5.6
