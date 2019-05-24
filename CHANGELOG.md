@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Make backtraces optional through a new opt-in `backtrace` feature. This removes the dependency on `cc` by default, which has special compile-time requirements.
+
 ## [v0.5.8] - 2019-04-11
 
 - Add `cargo xcheck`/`cargo xtest` commands for invoking `cargo check`/`cargo test`.
