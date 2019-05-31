@@ -42,11 +42,19 @@ impl Rustflags {
     }
 
     /// Stringifies these flags for Xargo consumption
-    pub fn for_xargo(&self, home: &Home) -> String {
+    pub fn for_xargo(&self, home: &Home) -> Result<String> {
+        let sysroot = format!("{}", home.display());
+        if env::var_os("XBUILD_ALLOW_SYSROOT_SPACES").is_none() && sysroot.contains(" ") {
+            return Err(format!("Sysroot must not contain spaces!\n\
+            See issue https://github.com/rust-lang/cargo/issues/6139\n\n\
+            The sysroot is `{}`.\n\n\
+            To override this error, you can set the `XBUILD_ALLOW_SYSROOT_SPACES`\
+            environment variable.", sysroot).into());
+        }
         let mut flags = self.flags.clone();
         flags.push("--sysroot".to_owned());
-        flags.push(format!("{}", home.display()));
-        flags.join(" ")
+        flags.push(sysroot);
+        Ok(flags.join(" "))
     }
 }
 

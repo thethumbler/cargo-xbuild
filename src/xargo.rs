@@ -28,7 +28,7 @@ pub fn run(
     cmd.arg(command_name);
     cmd.args(args.all());
 
-    let flags = rustflags.for_xargo(home);
+    let flags = rustflags.for_xargo(home)?;
     if verbose {
         writeln!(io::stderr(), "+ RUSTFLAGS={:?}", flags).ok();
     }
