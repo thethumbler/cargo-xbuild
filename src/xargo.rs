@@ -3,6 +3,7 @@ use std::mem;
 use std::path::Path;
 use std::path::{Display, PathBuf};
 use std::process::{Command, ExitStatus};
+use std::env;
 
 use rustc_version::VersionMeta;
 
@@ -72,8 +73,13 @@ impl Home {
 }
 
 pub fn home(root: &Path, config: &Config) -> Result<Home> {
-    let mut path = PathBuf::from(root);
-    path.push(&config.sysroot_path);
+    let path = if let Ok(path) = env::var("XBUILD_SYSROOT_PATH") {
+        PathBuf::from(path)
+    } else {
+        let mut path = PathBuf::from(root);
+        path.push(&config.sysroot_path);
+        path
+    };
 
     Ok(Home {
         path: Filesystem::new(path),
