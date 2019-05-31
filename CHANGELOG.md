@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Fix an issue with new `XBUILD_SYSROOT_PATH` environment variable ([#34](https://github.com/rust-osdev/cargo-xbuild/pull/34))
+
 ## [0.5.10] - 2019-05-31
 
 - Error when sysroot contains spaces ([#32](https://github.com/rust-osdev/cargo-xbuild/pull/32))
