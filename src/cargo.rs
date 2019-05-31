@@ -45,7 +45,7 @@ impl Rustflags {
     pub fn for_xargo(&self, home: &Home) -> String {
         let mut flags = self.flags.clone();
         flags.push("--sysroot".to_owned());
-        flags.push(util::escape_argument_spaces(format!("{}", home.display())));
+        flags.push(format!("{}", home.display()));
         flags.join(" ")
     }
 }
