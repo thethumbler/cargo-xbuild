@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Error when sysroot contains spaces ([#32](https://github.com/rust-osdev/cargo-xbuild/pull/32))
+
 ## [v0.5.9] - 2019-05-24
 
 - Make backtraces optional through a new opt-in `backtrace` feature. This removes the dependency on `cc` by default, which has special compile-time requirements.
