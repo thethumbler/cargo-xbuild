@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.5.10] - 2019-05-31
+
 - Error when sysroot contains spaces ([#32](https://github.com/rust-osdev/cargo-xbuild/pull/32))
 - Allow overriding the sysroot path through a `XBUILD_SYSROOT_PATH` environment variable ([#33](https://github.com/rust-osdev/cargo-xbuild/pull/33))
 
@@ -400,7 +402,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.9...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.10...HEAD
+[v0.5.10]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.9...v0.5.10
 [v0.5.9]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.8...v0.5.9
 [v0.5.8]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.7...v0.5.8
 [v0.5.7]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.6...v0.5.7
