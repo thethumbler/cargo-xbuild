@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.5.11] - 2019-05-31
+
 - Fix an issue with new `XBUILD_SYSROOT_PATH` environment variable ([#34](https://github.com/rust-osdev/cargo-xbuild/pull/34))
 
 ## [0.5.10] - 2019-05-31
@@ -404,7 +406,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.10...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.11...HEAD
+[v0.5.11]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.10...v0.5.11
 [v0.5.10]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.9...v0.5.10
 [v0.5.9]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.8...v0.5.9
 [v0.5.8]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.7...v0.5.8
