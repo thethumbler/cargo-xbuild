@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-- Fix incorrect joining of paths that caused some problems on Windows (de3091d4857b28670c5b5ddd323e70944e3a8d75).
+- Fix incorrect joining of paths that caused some problems on Windows ([`a1ff0331`](https://github.com/rust-osdev/cargo-xbuild/commit/a1ff03311dd74447e8e845b4b96f2e137850027d)).
 
 ## [0.5.11] - 2019-05-31
 
