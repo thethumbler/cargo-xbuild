@@ -1,5 +1,3 @@
-0.5.12
-
 # Change Log
 
 All notable changes to this project will be documented in this file.
@@ -7,15 +5,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [0.5.12] - 2019-06-13
+## [v0.5.12] - 2019-06-13
 
 - Fix incorrect joining of paths that caused some problems on Windows ([`a1ff0331`](https://github.com/rust-osdev/cargo-xbuild/commit/a1ff03311dd74447e8e845b4b96f2e137850027d)).
 
-## [0.5.11] - 2019-05-31
+## [v0.5.11] - 2019-05-31
 
 - Fix an issue with new `XBUILD_SYSROOT_PATH` environment variable ([#34](https://github.com/rust-osdev/cargo-xbuild/pull/34))
 
-## [0.5.10] - 2019-05-31
+## [v0.5.10] - 2019-05-31
 
 - Error when sysroot contains spaces ([#32](https://github.com/rust-osdev/cargo-xbuild/pull/32))
 - Allow overriding the sysroot path through a `XBUILD_SYSROOT_PATH` environment variable ([#33](https://github.com/rust-osdev/cargo-xbuild/pull/33))
