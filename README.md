@@ -42,6 +42,12 @@ sysroot_path = "target/sysroot"
 - The `memcpy` flag defines whether the `mem` feature of the `compiler_builtins` crate should be activated. Turning this flag off allows to specify own versions of the `memcpy`, `memset` etc. functions.
 - The `sysroot_path` flag specifies the directory where the sysroot should be placed.
 
+### Environment Variables
+
+In addition to the above configuration keys, `cargo-xbuild` can be also configured through the following environment variables:
+
+- The `XBUILD_SYSROOT_PATH` variable can be used to specify where `cargo-xbuild` should place the generated sysroot. This variables takes precendence over the `package.metadata.cargo-xbuild.sysroot_path` configuration key.
+
 ## Dev channel
 
 If you want to use a local Rust source instead of `rust-src` rustup component, you can set the `XARGO_RUST_SRC` environment variable.
