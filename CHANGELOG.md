@@ -1,9 +1,13 @@
+0.5.12
+
 # Change Log
 
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.5.12] - 2019-06-13
 
 - Fix incorrect joining of paths that caused some problems on Windows ([`a1ff0331`](https://github.com/rust-osdev/cargo-xbuild/commit/a1ff03311dd74447e8e845b4b96f2e137850027d)).
 
@@ -408,7 +412,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.11...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.12...HEAD
+[v0.5.12]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.11...v0.5.12
 [v0.5.11]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.10...v0.5.11
 [v0.5.10]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.9...v0.5.10
 [v0.5.9]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.8...v0.5.9
