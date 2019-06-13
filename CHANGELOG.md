@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Fix incorrect joining of paths that caused some problems on Windows (de3091d4857b28670c5b5ddd323e70944e3a8d75).
+
 ## [0.5.11] - 2019-05-31
 
 - Fix an issue with new `XBUILD_SYSROOT_PATH` environment variable ([#34](https://github.com/rust-osdev/cargo-xbuild/pull/34))

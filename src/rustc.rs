@@ -68,7 +68,7 @@ impl Sysroot {
     /// Returns the path to Rust source, `$SRC`, where `$SRC/libstd/Carg.toml`
     /// exists
     pub fn src(&self) -> Result<Src> {
-        let src = self.path().join("lib/rustlib/src");
+        let src = self.path().join("lib").join("rustlib").join("src");
 
         if src.join("rust/src/libstd/Cargo.toml").is_file() {
             return Ok(Src {

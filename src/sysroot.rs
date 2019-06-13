@@ -269,7 +269,8 @@ pub fn update(
     match util::cp_r(
         &sysroot
             .path()
-            .join("lib/rustlib")
+            .join("lib")
+            .join("rustlib")
             .join(&meta.host)
             .join("lib"),
         &dst,
@@ -290,7 +291,8 @@ pub fn update(
     match util::cp_r(
         &sysroot
             .path()
-            .join("lib/rustlib")
+            .join("lib")
+            .join("rustlib")
             .join(&meta.host)
             .join("bin"),
         &bin_dst,
