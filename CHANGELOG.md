@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Add `cargo xdoc` command for invoking `cargo doc` ([#39](https://github.com/rust-osdev/cargo-xbuild/pull/39)).
+
 ## [v0.5.12] - 2019-06-13
 
 - Fix incorrect joining of paths that caused some problems on Windows ([`a1ff0331`](https://github.com/rust-osdev/cargo-xbuild/commit/a1ff03311dd74447e8e845b4b96f2e137850027d)).
