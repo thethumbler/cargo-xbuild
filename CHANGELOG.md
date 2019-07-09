@@ -1,11 +1,11 @@
-0.5.13
-
 # Change Log
 
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [v0.5.13] - 2019-07-09
 
 - Add `cargo xdoc` command for invoking `cargo doc` ([#39](https://github.com/rust-osdev/cargo-xbuild/pull/39)).
 
@@ -414,7 +414,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.12...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.13...HEAD
+[v0.5.13]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.12...v0.5.13
 [v0.5.12]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.11...v0.5.12
 [v0.5.11]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.10...v0.5.11
 [v0.5.10]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.9...v0.5.10
