@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.5.15] - 2019-07-17
+
+- Add xb, xt, xc, and xr subcommands ([#42](https://github.com/rust-osdev/cargo-xbuild/pull/42))
+
 ## [v0.5.14] - 2019-07-11
 
 - Don't append a `--sysroot` argument to `RUSTFLAGS` if it already contains one ([#40](https://github.com/rust-osdev/cargo-xbuild/pull/40))
@@ -418,7 +422,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.14...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.15...HEAD
+[v0.5.15]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.14...v0.5.15
 [v0.5.14]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.13...v0.5.14
 [v0.5.13]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.12...v0.5.13
 [v0.5.12]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.11...v0.5.12
