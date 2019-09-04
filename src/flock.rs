@@ -49,18 +49,19 @@ impl FileLock {
 
 pub struct Filesystem {
     path: PathBuf,
+    quiet: bool,
 }
 
 impl Filesystem {
-    pub fn new(path: PathBuf) -> Filesystem {
-        Filesystem { path: path }
+    pub fn new(path: PathBuf, quiet: bool) -> Filesystem {
+        Filesystem { path: path, quiet: quiet }
     }
 
     pub fn join<T>(&self, other: T) -> Filesystem
     where
         T: AsRef<Path>,
     {
-        Filesystem::new(self.path.join(other))
+        Filesystem::new(self.path.join(other), self.quiet)
     }
 
     pub fn open_ro<P>(&self, path: P, msg: &str) -> io::Result<FileLock>
@@ -107,12 +108,12 @@ impl Filesystem {
 
         match state {
             State::Exclusive => {
-                acquire(msg, &path, &|| f.try_lock_exclusive(), &|| {
+                acquire(msg, &path, self.quiet, &|| f.try_lock_exclusive(), &|| {
                     f.lock_exclusive()
                 })?;
             }
             State::Shared => {
-                acquire(msg, &path, &|| f.try_lock_shared(), &|| f.lock_shared())?;
+                acquire(msg, &path, self.quiet, &|| f.try_lock_shared(), &|| f.lock_shared())?;
             }
         }
 
@@ -136,6 +137,7 @@ impl Drop for FileLock {
 fn acquire(
     msg: &str,
     path: &Path,
+    quiet: bool,
     try: &dyn Fn() -> io::Result<()>,
     block: &dyn Fn() -> io::Result<()>,
 ) -> io::Result<()> {
@@ -178,13 +180,15 @@ fn acquire(
         }
     }
 
-    writeln!(
-        io::stderr(),
-        "{:>12} waiting for file lock on {}",
-        "Blocking",
-        msg
-    )
-    .ok();
+    if !quiet {
+        writeln!(
+            io::stderr(),
+            "{:>12} waiting for file lock on {}",
+            "Blocking",
+            msg
+        )
+        .ok();
+    }
 
     block()
 }

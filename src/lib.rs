@@ -145,6 +145,7 @@ fn run(command_name: &str) -> Result<Option<ExitStatus>> {
 
 fn build(args: cli::Args, command_name: &str) -> Result<ExitStatus> {
     let verbose = args.verbose();
+    let quiet = args.quiet();
     let meta = rustc::version();
     let cd = CurrentDirectory::get()?;
     let config = cargo::config()?;
@@ -207,7 +208,7 @@ fn build(args: cli::Args, command_name: &str) -> Result<ExitStatus> {
     }
 
     if let Some(cmode) = cmode {
-        let home = xargo::home(root, &crate_config)?;
+        let home = xargo::home(root, &crate_config, quiet)?;
         let rustflags = cargo::rustflags(config.as_ref(), cmode.triple())?;
 
         sysroot::update(
