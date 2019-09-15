@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Fix warning about implicit trait objects ([#46](https://github.com/rust-osdev/cargo-xbuild/pull/46))
+
 ## [v0.5.16] - 2019-09-10
 
 - Print a warning when building for the host system because this is often unintended.
