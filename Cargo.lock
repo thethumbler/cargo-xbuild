@@ -22,7 +22,7 @@ dependencies = [
 
 [[package]]
 name = "cargo-xbuild"
-version = "0.5.17"
+version = "0.5.18"
 dependencies = [
  "cargo_metadata 0.5.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "error-chain 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",

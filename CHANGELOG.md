@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.5.18] - 2019-10-08
+
+- Add support for publishing and installing cross compiled crates ([#47](https://github.com/rust-osdev/cargo-xbuild/pull/47))
+
 ## [v0.5.17] - 2019-09-15
 
 - Fix warning about implicit trait objects ([#46](https://github.com/rust-osdev/cargo-xbuild/pull/46))
@@ -431,7 +435,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.17...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.18...HEAD
+[v0.5.18]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.17...v0.5.18
 [v0.5.17]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.16...v0.5.17
 [v0.5.16]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.15...v0.5.16
 [v0.5.15]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.14...v0.5.15
