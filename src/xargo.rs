@@ -74,7 +74,7 @@ impl Home {
     }
 }
 
-pub fn home(root: &Path, config: &Config) -> Result<Home> {
+pub fn home(root: &Path, config: &Config, quiet: bool) -> Result<Home> {
     let path = if let Ok(path) = env::var("XBUILD_SYSROOT_PATH") {
         PathBuf::from(path)
     } else {
@@ -84,6 +84,6 @@ pub fn home(root: &Path, config: &Config) -> Result<Home> {
     };
 
     Ok(Home {
-        path: Filesystem::new(path),
+        path: Filesystem::new(path, quiet),
     })
 }

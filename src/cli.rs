@@ -20,6 +20,10 @@ impl Args {
         self.manifest_path.as_ref().map(|s| &**s)
     }
 
+    pub fn quiet(&self) -> bool {
+        self.all.iter().any(|a| a == "--quiet" || a == "-q")
+    }
+
     pub fn verbose(&self) -> bool {
         self.all
             .iter()
