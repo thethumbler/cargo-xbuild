@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Add `--quiet` flag that suppresses "waiting for file lock" message ([#43](https://github.com/rust-osdev/cargo-xbuild/pull/43))
+
 ## [v0.5.18] - 2019-10-08
 
 - Add support for publishing and installing cross compiled crates ([#47](https://github.com/rust-osdev/cargo-xbuild/pull/47))
