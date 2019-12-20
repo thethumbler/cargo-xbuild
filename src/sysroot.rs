@@ -155,7 +155,7 @@ version = "0.1.0"
     if config.memcpy {
         stoml.push_str("features = ['mem', 'core']\n");
     } else {
-        stoml.push_str("features = ['rustc-std-workspace-core']\n");
+        stoml.push_str("features = ['core']\n");
     }
 
     stoml.push_str("[dependencies.core]\n");
