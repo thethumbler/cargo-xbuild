@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Fix wrong feature name for memcpy=false ([#50](https://github.com/rust-osdev/cargo-xbuild/pull/50))
+
 ## [v0.5.19] - 2019-12-13
 
 - Add `--quiet` flag that suppresses "waiting for file lock" message ([#43](https://github.com/rust-osdev/cargo-xbuild/pull/43))
