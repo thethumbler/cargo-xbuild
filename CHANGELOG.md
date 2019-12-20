@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.5.20] - 2019-12-20
+
 - Fix wrong feature name for memcpy=false ([#50](https://github.com/rust-osdev/cargo-xbuild/pull/50))
 
 ## [v0.5.19] - 2019-12-13
@@ -441,7 +443,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.19...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.20...HEAD
+[v0.5.20]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.19...v0.5.20
 [v0.5.19]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.18...v0.5.19
 [v0.5.18]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.17...v0.5.18
 [v0.5.17]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.16...v0.5.17
