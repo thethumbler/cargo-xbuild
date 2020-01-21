@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Override target path for building sysroot ([#52](https://github.com/rust-osdev/cargo-xbuild/pull/52))
+
 ## [v0.5.20] - 2019-12-20
 
 - Fix wrong feature name for memcpy=false ([#50](https://github.com/rust-osdev/cargo-xbuild/pull/50))
