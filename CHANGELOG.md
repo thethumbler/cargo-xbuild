@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v0.5.21] - 2020-01-21
+
 - Override target path for building sysroot ([#52](https://github.com/rust-osdev/cargo-xbuild/pull/52))
 
 ## [v0.5.20] - 2019-12-20
@@ -445,7 +447,8 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.20...HEAD
+[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.21...HEAD
+[v0.5.21]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.20...v0.5.21
 [v0.5.20]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.19...v0.5.20
 [v0.5.19]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.18...v0.5.19
 [v0.5.18]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.17...v0.5.18
