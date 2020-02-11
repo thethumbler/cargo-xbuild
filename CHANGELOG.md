@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Add new `panic_immediate_abort` option to the configuration table([#56](https://github.com/rust-osdev/cargo-xbuild/pull/56))
+
 ## [v0.5.21] - 2020-01-21
 
 - Override target path for building sysroot ([#52](https://github.com/rust-osdev/cargo-xbuild/pull/52))
