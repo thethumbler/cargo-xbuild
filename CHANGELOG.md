@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Pick up xbuild config from workspace manifest ([#57](https://github.com/rust-osdev/cargo-xbuild/pull/57))
+
 ## [v0.5.22] - 2020-02-11
 
 - Add new `panic_immediate_abort` option to the configuration table([#56](https://github.com/rust-osdev/cargo-xbuild/pull/56))
