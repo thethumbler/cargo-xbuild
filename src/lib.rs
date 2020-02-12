@@ -143,7 +143,7 @@ fn run(command_name: &str) -> Result<Option<ExitStatus>> {
     }
 }
 
-fn build(args: cli::Args, command_name: &str) -> Result<ExitStatus> {
+pub fn build(args: cli::Args, command_name: &str) -> Result<ExitStatus> {
     let verbose = args.verbose();
     let quiet = args.quiet();
     let meta = rustc::version();
