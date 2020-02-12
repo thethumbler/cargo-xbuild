@@ -37,6 +37,8 @@ mod sysroot;
 mod util;
 mod xargo;
 
+pub use cli::Args;
+
 // We use a different sysroot for Native compilation to avoid file locking
 //
 // Cross compilation requires `lib/rustlib/$HOST` to match `rustc`'s sysroot,

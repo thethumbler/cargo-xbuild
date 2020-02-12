@@ -8,6 +8,10 @@ pub struct Args {
 }
 
 impl Args {
+    pub fn new(all: Vec<String>, target: Option<String>, manifest_path: Option<PathBuf>) -> Self {
+        Args { all, target, manifest_path }
+    }
+
     pub fn all(&self) -> &[String] {
         &self.all
     }
