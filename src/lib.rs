@@ -37,6 +37,8 @@ mod sysroot;
 mod util;
 mod xargo;
 
+pub use cli::Args;
+
 // We use a different sysroot for Native compilation to avoid file locking
 //
 // Cross compilation requires `lib/rustlib/$HOST` to match `rustc`'s sysroot,
@@ -143,7 +145,7 @@ fn run(command_name: &str) -> Result<Option<ExitStatus>> {
     }
 }
 
-fn build(args: cli::Args, command_name: &str) -> Result<ExitStatus> {
+pub fn build(args: cli::Args, command_name: &str) -> Result<ExitStatus> {
     let verbose = args.verbose();
     let quiet = args.quiet();
     let meta = rustc::version();

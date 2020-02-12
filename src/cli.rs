@@ -8,6 +8,20 @@ pub struct Args {
 }
 
 impl Args {
+    pub fn new<A, S, T, P>(all: A, target: Option<T>, manifest_path: Option<P>) -> Self
+    where
+        A: IntoIterator<Item = S>,
+        S: AsRef<str>,
+        T: Into<String>,
+        P: Into<PathBuf>,
+    {
+        Args {
+            all: all.into_iter().map(|s| s.as_ref().to_string()).collect(),
+            target: target.map(Into::into),
+            manifest_path: manifest_path.map(Into::into)
+        }
+    }
+
     pub fn all(&self) -> &[String] {
         &self.all
     }
@@ -46,7 +60,7 @@ pub fn args(command_name: &str) -> Result<(Command, Args), String> {
         _ => Command::Build,
     };
 
-    let mut target = None;
+    let mut target: Option<String> = None;
     let mut manifest_path = None;
     {
         let mut args = all.iter();
@@ -64,11 +78,7 @@ pub fn args(command_name: &str) -> Result<(Command, Args), String> {
         }
     }
 
-    let args = Args {
-        all: all,
-        target: target,
-        manifest_path: manifest_path.as_ref().map(PathBuf::from),
-    };
+    let args = Args::new(all, target, manifest_path);
     Ok((command, args))
 }
 
