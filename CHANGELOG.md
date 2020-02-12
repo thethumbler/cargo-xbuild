@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Make `fn build` and `Args` public to enable use as lib ([#59](https://github.com/rust-osdev/cargo-xbuild/pull/59))
+
 ## [v0.5.23] - 2020-02-12
 
 - Pick up xbuild config from workspace manifest ([#57](https://github.com/rust-osdev/cargo-xbuild/pull/57))
