@@ -20,27 +20,41 @@ struct ParseConfig {
 
 impl Config {
     pub fn from_metadata(metadata: &cargo_metadata::Metadata) -> Result<Config> {
-        let root_package_id = metadata
-            .resolve
-            .as_ref()
-            .and_then(|resolve| resolve.root.clone())
-            .ok_or("Cannot infer the root project id")?;
-
-        // Find the root package by id in the list of packages. It is logical error if the root
-        // package is not found in the list.
+        let root_manifest = metadata.workspace_root.join("Cargo.toml");
         let root_package = metadata
             .packages
             .iter()
-            .find(|package| package.id == root_package_id)
-            .expect("The package is not found in the `cargo metadata` output");
+            .find(|package| package.manifest_path == root_manifest);
 
-        let crate_metadata = root_package.metadata.get("cargo-xbuild");
-        let config = match crate_metadata {
-            Some(json) => {
-                serde_json::from_value(json.clone())
-                    .map_err(|e| format!("parsing package.metadata.cargo-xbuild section failed: {}", e))?
+        let config = match root_package {
+            Some(root_package) => {
+                let crate_metadata = root_package.metadata.get("cargo-xbuild");
+                match crate_metadata {
+                    Some(json) => serde_json::from_value(json.clone()).map_err(|e| {
+                        format!(
+                            "parsing package.metadata.cargo-xbuild section failed: {}",
+                            e
+                        )
+                    })?,
+                    None => ParseConfig::default(),
+                }
             }
-            None => ParseConfig::default(),
+            None => {
+                // The project has no root package. This could be because it only defines a
+                // dummy `Cargo.toml` at the root without a `[package]` section.
+                //
+                // The problem in this case is that we don't have a reasonable place to read
+                // the config from. There are multiple `Cargo.toml`s in this workspace and it
+                // is not clear which one is the "canonical" Cargo.toml with the xbuild config.
+                //
+                // So we can't read the config for such projects. To make this transparent to
+                // the user, we print a warning.
+                eprintln!(
+                    "WARNING: There is no root package to read the cargo-xbuild config from."
+                );
+                // There is no config to read, so we use default options
+                ParseConfig::default()
+            }
         };
 
         Ok(Config {
