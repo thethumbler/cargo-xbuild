@@ -161,7 +161,7 @@ pub fn build(args: cli::Args, command_name: &str) -> Result<ExitStatus> {
         .expect("cargo metadata invocation failed");
     let root = Path::new(&metadata.workspace_root);
     let crate_config = config::Config::from_metadata(&metadata)
-        .map_err(|_| "parsing package.metadata.cargo-xbuild section failed")?;
+        .map_err(|e| format!("reading package.metadata.cargo-xbuild section failed: {}", e))?;
 
     // We can't build sysroot with stable or beta due to unstable features
     let sysroot = rustc::sysroot(verbose)?;

@@ -38,7 +38,7 @@ impl Config {
         let config = match crate_metadata {
             Some(json) => {
                 serde_json::from_value(json.clone())
-                    .map_err(|_| "parsing package.metadata.cargo-xbuild section failed")?
+                    .map_err(|e| format!("parsing package.metadata.cargo-xbuild section failed: {}", e))?
             }
             None => ParseConfig::default(),
         };
