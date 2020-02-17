@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Fix: Not all projects have a root package ([#61](https://github.com/rust-osdev/cargo-xbuild/pull/61))
+
 ## [v0.5.24] - 2020-02-12
 
 - Make `fn build` and `Args` public to enable use as lib ([#59](https://github.com/rust-osdev/cargo-xbuild/pull/59))
