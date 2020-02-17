@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## Unreleased
 
 - Fix: Not all projects have a root package ([#61](https://github.com/rust-osdev/cargo-xbuild/pull/61))
 
@@ -461,7 +461,6 @@ stage = 1
 
 - Initial release
 
-[Unreleased]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.24...HEAD
 [v0.5.24]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.23...v0.5.24
 [v0.5.23]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.22...v0.5.23
 [v0.5.22]: https://github.com/rust-osdev/cargo-xbuild/compare/v0.5.21...v0.5.22
