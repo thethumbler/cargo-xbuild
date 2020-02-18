@@ -128,7 +128,7 @@ fn run(command_name: &str) -> Result<Option<ExitStatus>> {
 
     let (command, args) = cli::args(command_name)?;
     match command {
-        Command::Build => Ok(Some(build(args, command_name)?)),
+        Command::Build => Ok(Some(build(args, command_name, None)?)),
         Command::Help => {
             print!(include_str!("help.txt"), command_name = command_name);
             Ok(None)
@@ -145,7 +145,11 @@ fn run(command_name: &str) -> Result<Option<ExitStatus>> {
     }
 }
 
-pub fn build(args: cli::Args, command_name: &str) -> Result<ExitStatus> {
+/// Execute a cargo command with cross compiled sysroot crates for custom targets.
+///
+/// If `crate_config` is provided it will override the values in the `Cargo.toml`.
+/// Otherwise the config specified in the `[package.metadata.cargo-xbuild section]` will be used.
+pub fn build(args: cli::Args, command_name: &str, crate_config: Option<config::Config>) -> Result<ExitStatus> {
     let verbose = args.verbose();
     let quiet = args.quiet();
     let meta = rustc::version();
@@ -156,12 +160,17 @@ pub fn build(args: cli::Args, command_name: &str) -> Result<ExitStatus> {
     if let Some(manifest_path) = args.manifest_path() {
         cmd.manifest_path(manifest_path);
     }
+
     let metadata = cmd
         .exec()
         .expect("cargo metadata invocation failed");
     let root = Path::new(&metadata.workspace_root);
-    let crate_config = config::Config::from_metadata(&metadata)
-        .map_err(|e| format!("reading package.metadata.cargo-xbuild section failed: {}", e))?;
+
+    // Fall back to manifest if config not explicitly specified
+    let crate_config = crate_config.map(Ok).unwrap_or_else(|| {
+        config::Config::from_metadata(&metadata)
+            .map_err(|e| format!("reading package.metadata.cargo-xbuild section failed: {}", e))
+    })?;
 
     // We can't build sysroot with stable or beta due to unstable features
     let sysroot = rustc::sysroot(verbose)?;
