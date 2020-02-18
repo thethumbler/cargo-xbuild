@@ -20,7 +20,7 @@ impl Args {
         target: Option<T>,
         manifest_path: Option<P>,
         verbosity: Option<Verbosity>,
-        other_args: A
+        other_args: A,
     ) -> Result<Self, String>
     where
         T: Into<String> + Clone,
@@ -44,9 +44,10 @@ impl Args {
             })
             .collect::<Vec<_>>();
         if !duplicates.is_empty() {
-            return Err(
-                format!("The following args should be passed explicitly: {:?}", duplicates)
-            )
+            return Err(format!(
+                "The following args should be passed explicitly: {:?}",
+                duplicates
+            ));
         }
 
         // add the explicitly specified args to `all` which will be passed on to `cargo`
@@ -55,7 +56,10 @@ impl Args {
             all.push(format!("--target={}", target.into()))
         }
         if let Some(ref manifest_path) = manifest_path {
-            all.push(format!("--manifest-path={}", manifest_path.as_ref().to_string_lossy()))
+            all.push(format!(
+                "--manifest-path={}",
+                manifest_path.as_ref().to_string_lossy()
+            ))
         }
         if let Some(ref verbosity) = verbosity {
             match verbosity {
@@ -78,7 +82,10 @@ impl Args {
         A: IntoIterator<Item = S>,
         S: AsRef<str>,
     {
-        let all = all.into_iter().map(|a| a.as_ref().to_string()).collect::<Vec<_>>();
+        let all = all
+            .into_iter()
+            .map(|a| a.as_ref().to_string())
+            .collect::<Vec<_>>();
 
         let mut target: Option<String> = None;
         let mut manifest_path = None;
@@ -98,13 +105,13 @@ impl Args {
                 }
                 if arg == "--verbose" || arg == "-v" || arg == "-vv" {
                     if let Some(Verbosity::Quiet) = verbosity {
-                        return Err("cannot set both --verbose and --quiet".into())
+                        return Err("cannot set both --verbose and --quiet".into());
                     }
                     verbosity = Some(Verbosity::Verbose)
                 }
                 if arg == "--quiet" || arg == "-q" {
                     if let Some(Verbosity::Verbose) = verbosity {
-                        return Err("cannot set both --verbose and --quiet".into())
+                        return Err("cannot set both --verbose and --quiet".into());
                     }
                     verbosity = Some(Verbosity::Quiet)
                 }

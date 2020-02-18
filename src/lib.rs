@@ -162,15 +162,17 @@ pub fn build(args: Args, command_name: &str, crate_config: Option<Config>) -> Re
         cmd.manifest_path(manifest_path);
     }
 
-    let metadata = cmd
-        .exec()
-        .expect("cargo metadata invocation failed");
+    let metadata = cmd.exec().expect("cargo metadata invocation failed");
     let root = Path::new(&metadata.workspace_root);
 
     // Fall back to manifest if config not explicitly specified
     let crate_config = crate_config.map(Ok).unwrap_or_else(|| {
-        Config::from_metadata(&metadata)
-            .map_err(|e| format!("reading package.metadata.cargo-xbuild section failed: {}", e))
+        Config::from_metadata(&metadata).map_err(|e| {
+            format!(
+                "reading package.metadata.cargo-xbuild section failed: {}",
+                e
+            )
+        })
     })?;
 
     // We can't build sysroot with stable or beta due to unstable features
