@@ -37,7 +37,7 @@ mod sysroot;
 mod util;
 mod xargo;
 
-pub use cli::Args;
+pub use cli::{Args, Verbosity};
 
 // We use a different sysroot for Native compilation to avoid file locking
 //
