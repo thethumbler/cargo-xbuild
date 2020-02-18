@@ -150,7 +150,7 @@ fn run(command_name: &str) -> Result<Option<ExitStatus>> {
 ///
 /// If `crate_config` is provided it will override the values in the `Cargo.toml`.
 /// Otherwise the config specified in the `[package.metadata.cargo-xbuild section]` will be used.
-pub fn build(args: cli::Args, command_name: &str, crate_config: Option<config::Config>) -> Result<ExitStatus> {
+pub fn build(args: Args, command_name: &str, crate_config: Option<Config>) -> Result<ExitStatus> {
     let verbose = args.verbose();
     let quiet = args.quiet();
     let meta = rustc::version();
@@ -169,7 +169,7 @@ pub fn build(args: cli::Args, command_name: &str, crate_config: Option<config::C
 
     // Fall back to manifest if config not explicitly specified
     let crate_config = crate_config.map(Ok).unwrap_or_else(|| {
-        config::Config::from_metadata(&metadata)
+        Config::from_metadata(&metadata)
             .map_err(|e| format!("reading package.metadata.cargo-xbuild section failed: {}", e))
     })?;
 
