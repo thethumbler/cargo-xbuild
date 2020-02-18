@@ -29,19 +29,23 @@ impl Args {
         S: AsRef<str>,
     {
         // check for duplicates of the explicit args
-        let explicit_args = ["--target", "--manifest-path", "--verbose", "--quiet"];
         let other_args = other_args
             .into_iter()
             .map(|a| a.as_ref().to_string())
             .collect::<Vec<_>>();
 
+        let explicit_args = ["--target", "--manifest-path", "--verbose", "--quiet"];
         let duplicates = other_args
             .iter()
-            .filter(|a| explicit_args.iter().any(|ea| a.starts_with(ea)))
+            .filter(|a| {
+                explicit_args
+                    .iter()
+                    .any(|ea| a == ea || a.starts_with(&format!("{}=", ea)))
+            })
             .collect::<Vec<_>>();
         if !duplicates.is_empty() {
             return Err(
-                format!("The following args should be passed explicitly: '{:?}'", duplicates)
+                format!("The following args should be passed explicitly: {:?}", duplicates)
             )
         }
 
