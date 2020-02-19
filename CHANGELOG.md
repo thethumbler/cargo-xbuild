@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+- Improvements to args and config for lib usage
+
 ## 0.5.25 - 2020-02-17
 
 - Fix: Not all projects have a root package ([#61](https://github.com/rust-osdev/cargo-xbuild/pull/61))
