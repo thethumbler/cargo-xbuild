@@ -28,12 +28,12 @@ impl Args {
         A: IntoIterator<Item = S>,
         S: AsRef<str>,
     {
-        // check for duplicates of the explicit args
         let other_args = other_args
             .into_iter()
             .map(|a| a.as_ref().to_string())
             .collect::<Vec<_>>();
 
+        // check for duplicates of the explicit args
         let explicit_args = ["--target", "--manifest-path", "--verbose", "--quiet"];
         let duplicates = other_args
             .iter()
@@ -50,7 +50,7 @@ impl Args {
             ));
         }
 
-        // add the explicitly specified args to `all` which will be passed on to `cargo`
+        // add the explicit args to `all` which will be passed on to `cargo`
         let mut all = other_args;
         if let Some(target) = target.clone() {
             all.push(format!("--target={}", target.into()))

@@ -149,7 +149,7 @@ fn run(command_name: &str) -> Result<Option<ExitStatus>> {
 /// Execute a cargo command with cross compiled sysroot crates for custom targets.
 ///
 /// If `crate_config` is provided it will override the values in the `Cargo.toml`.
-/// Otherwise the config specified in the `[package.metadata.cargo-xbuild section]` will be used.
+/// Otherwise the config specified in the `[package.metadata.cargo-xbuild]` section will be used.
 pub fn build(args: Args, command_name: &str, crate_config: Option<Config>) -> Result<ExitStatus> {
     let verbose = args.verbose();
     let quiet = args.quiet();
