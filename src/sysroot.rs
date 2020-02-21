@@ -8,7 +8,7 @@ use std::process::Command;
 
 use rustc_version::VersionMeta;
 use tempdir::TempDir;
-use toml::{Table, Value};
+use toml::{value::Table, Value};
 
 use cargo;
 use cargo::Rustflags;

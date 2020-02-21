@@ -1,4 +1,3 @@
-use std::collections::BTreeMap;
 use std::hash::{Hash, Hasher};
 use std::path::{Path, PathBuf};
 use std::process::{Command, ExitStatus};
@@ -45,11 +44,15 @@ impl Rustflags {
     pub fn for_xargo(&self, home: &Home) -> Result<String> {
         let sysroot = format!("{}", home.display());
         if env::var_os("XBUILD_ALLOW_SYSROOT_SPACES").is_none() && sysroot.contains(" ") {
-            return Err(format!("Sysroot must not contain spaces!\n\
-            See issue https://github.com/rust-lang/cargo/issues/6139\n\n\
-            The sysroot is `{}`.\n\n\
-            To override this error, you can set the `XBUILD_ALLOW_SYSROOT_SPACES`\
-            environment variable.", sysroot).into());
+            return Err(format!(
+                "Sysroot must not contain spaces!\n\
+                See issue https://github.com/rust-lang/cargo/issues/6139\n\n\
+                The sysroot is `{}`.\n\n\
+                To override this error, you can set the `XBUILD_ALLOW_SYSROOT_SPACES`\
+                environment variable.",
+                sysroot
+            )
+            .into());
         }
         let mut flags = self.flags.clone();
         if !flags.contains(&String::from("--sysroot")) {
@@ -86,16 +89,16 @@ fn flags(config: Option<&Config>, target: &str, tool: &str) -> Result<Vec<String
         let mut build = false;
         if let Some(array) = config
             .table
-            .lookup(&format!("target.{}.{}", target, tool))
+            .get(&format!("target.{}.{}", target, tool))
             .or_else(|| {
                 build = true;
-                config.table.lookup(&format!("build.{}", tool))
+                config.table.get(&format!("build.{}", tool))
             })
         {
             let mut flags = vec![];
 
             let mut error = false;
-            if let Some(array) = array.as_slice() {
+            if let Value::Array(array) = array {
                 for value in array {
                     if let Some(flag) = value.as_str() {
                         flags.push(flag.to_owned());
@@ -149,7 +152,7 @@ pub struct Config {
 
 impl Config {
     pub fn target(&self) -> Result<Option<String>> {
-        if let Some(v) = self.table.lookup("build.target") {
+        if let Some(v) = self.table.get("build.target") {
             let target = v
                 .as_str()
                 .ok_or_else(|| format!(".cargo/config: build.target must be a string"))?;
@@ -217,9 +220,9 @@ impl<'t> Profile<'t> {
 
 impl<'t> fmt::Display for Profile<'t> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let mut map = BTreeMap::new();
+        let mut map = toml::map::Map::new();
         map.insert("profile".to_owned(), {
-            let mut map = BTreeMap::new();
+            let mut map = toml::map::Map::new();
             map.insert("release".to_owned(), self.table.clone());
             Value::Table(map)
         });
@@ -236,7 +239,7 @@ impl Toml {
     /// `profile.release` part of `Cargo.toml`
     pub fn profile(&self) -> Option<Profile> {
         self.table
-            .lookup("profile.release")
+            .get("profile.release")
             .map(|t| Profile { table: t })
     }
 }
