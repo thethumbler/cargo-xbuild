@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+- Update dependencies ([#65](https://github.com/rust-osdev/cargo-xbuild/pull/65))
+
 ## 0.5.27 - 2020-02-21
 
 - Add `cargo xfix` command ([#64](https://github.com/rust-osdev/cargo-xbuild/pull/64))
