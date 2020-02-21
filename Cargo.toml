@@ -36,7 +36,7 @@ default-features = false
 lazy_static = "1.4"
 
 [dev-dependencies.parking_lot]
-version = "0.3.6"
+version = "0.10"
 
 [features]
 dev = []
