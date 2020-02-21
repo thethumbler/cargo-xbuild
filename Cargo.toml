@@ -33,7 +33,7 @@ version = "0.9.1"
 default-features = false
 
 [dev-dependencies]
-lazy_static = "0.2.8"
+lazy_static = "1.4"
 
 [dev-dependencies.parking_lot]
 version = "0.3.6"
