@@ -3,7 +3,7 @@ use std::fs::File;
 use std::io::{Read, Write};
 use std::path::Path;
 
-use toml::{Parser, Value};
+use toml::Value;
 use walkdir::WalkDir;
 
 use errors::*;
@@ -60,9 +60,9 @@ pub fn mkdir(path: &Path) -> Result<()> {
 
 /// Parses `path` as TOML
 pub fn parse(path: &Path) -> Result<Value> {
-    Ok(Value::Table(Parser::new(&read(path)?).parse().ok_or_else(
-        || format!("{} is not valid TOML", path.display()),
-    )?))
+    Ok(read(path)?
+        .parse::<Value>()
+        .map_err(|e| format!("{} is not valid TOML: {}", path.display(), e))?)
 }
 
 pub fn read(path: &Path) -> Result<String> {

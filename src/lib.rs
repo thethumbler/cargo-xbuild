@@ -153,7 +153,7 @@ fn run(command_name: &str) -> Result<Option<ExitStatus>> {
 pub fn build(args: Args, command_name: &str, crate_config: Option<Config>) -> Result<ExitStatus> {
     let verbose = args.verbose();
     let quiet = args.quiet();
-    let meta = rustc::version();
+    let meta = rustc::version().map_err(|e| format!("getting rustc version failed: {}", e))?;
     let cd = CurrentDirectory::get()?;
     let config = cargo::config()?;
 
