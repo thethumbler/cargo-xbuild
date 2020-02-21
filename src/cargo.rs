@@ -89,10 +89,12 @@ fn flags(config: Option<&Config>, target: &str, tool: &str) -> Result<Vec<String
         let mut build = false;
         if let Some(array) = config
             .table
-            .get(&format!("target.{}.{}", target, tool))
+            .get("target")
+            .and_then(|v| v.get(target))
+            .and_then(|v| v.get(tool))
             .or_else(|| {
                 build = true;
-                config.table.get(&format!("build.{}", tool))
+                config.table.get("build").and_then(|v| v.get(tool))
             })
         {
             let mut flags = vec![];
@@ -152,7 +154,7 @@ pub struct Config {
 
 impl Config {
     pub fn target(&self) -> Result<Option<String>> {
-        if let Some(v) = self.table.get("build.target") {
+        if let Some(v) = self.table.get("build").and_then(|v| v.get("target")) {
             let target = v
                 .as_str()
                 .ok_or_else(|| format!(".cargo/config: build.target must be a string"))?;
@@ -239,7 +241,8 @@ impl Toml {
     /// `profile.release` part of `Cargo.toml`
     pub fn profile(&self) -> Option<Profile> {
         self.table
-            .get("profile.release")
+            .get("profile")
+            .and_then(|v| v.get("release"))
             .map(|t| Profile { table: t })
     }
 }
