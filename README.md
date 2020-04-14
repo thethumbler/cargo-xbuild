@@ -49,6 +49,7 @@ panic_immediate_abort = false
 In addition to the above configuration keys, `cargo-xbuild` can be also configured through the following environment variables:
 
 - The `XBUILD_SYSROOT_PATH` variable can be used to specify where `cargo-xbuild` should place the generated sysroot. This variables takes precendence over the `package.metadata.cargo-xbuild.sysroot_path` configuration key.
+- When the `XBUILD_KEEP_TEMP` variable is set, the temporary directory used for compiling the sysroot is not deleted. This is useful for debugging. For convenience, `cargo-xbuild` also prints the directory name when the environment variable is set.
 
 ## Dev channel
 
