@@ -62,8 +62,16 @@ fn build_crate(
     dst: &Path,
     verbose: bool,
 ) -> Result<()> {
-    let td = TempDir::new("xargo").chain_err(|| "couldn't create a temporary directory")?;
-    let td = td.path();
+    let td = TempDir::new("cargo-xbuild").chain_err(|| "couldn't create a temporary directory")?;
+    let td_path;
+    let td = if env::var_os("XBUILD_KEEP_TEMP").is_some() {
+        td_path = td.into_path();
+        println!("XBUILD_KEEP_TEMP: files at {:?}", td_path);
+        &td_path
+    } else {
+        td.path()
+    };
+
     let target_dir = td.join("target");
 
     if let Some(profile) = ctoml.profile() {
