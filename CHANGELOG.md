@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 0.5.30 - 2020-05-11
+
 - Enable lto for sysroot build to fix missing bitcode error ([#70](https://github.com/rust-osdev/cargo-xbuild/pull/70))
 
 ## 0.5.29 - 2020-04-14
