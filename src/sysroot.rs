@@ -74,11 +74,8 @@ fn build_crate(
 
     let target_dir = td.join("target");
 
-    if let Some(mut profile) = ctoml.profile() {
-        profile.set_lto();
+    if let Some(profile) = ctoml.profile() {
         stoml.push_str(&profile.to_string())
-    } else {
-        stoml.push_str("[profile.release]\nlto = true");
     }
 
     util::write(&td.join("Cargo.toml"), &stoml)?;
@@ -87,7 +84,7 @@ fn build_crate(
 
     let cargo = std::env::var("CARGO").unwrap_or("cargo".to_string());
     let mut cmd = Command::new(cargo);
-    cmd.env_remove("RUSTFLAGS");
+    cmd.env("RUSTFLAGS", "-Clinker-plugin-lto");
     cmd.env("CARGO_TARGET_DIR", &target_dir);
     cmd.env("__CARGO_DEFAULT_LIB_METADATA", "XARGO");
 

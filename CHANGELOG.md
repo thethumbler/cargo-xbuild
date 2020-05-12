@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+- Set `-Clinker-plugin-lto` for the sysroot build ([#71](https://github.com/rust-osdev/cargo-xbuild/pull/71))
+  - Second try to fix missing bitcode error for LTO builds (see [#69](https://github.com/rust-osdev/cargo-xbuild/issues/69))
+  - Reverts "Enable lto for sysroot build to fix missing bitcode error ([#70](https://github.com/rust-osdev/cargo-xbuild/pull/70))"
+
 ## 0.5.30 - 2020-05-11
 
 - Enable lto for sysroot build to fix missing bitcode error ([#70](https://github.com/rust-osdev/cargo-xbuild/pull/70))
