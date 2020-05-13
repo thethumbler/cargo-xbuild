@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+- Respect Cargo.lock file for sysroot build ([#75](https://github.com/rust-osdev/cargo-xbuild/pull/75))
+
 ## 0.5.31 - 2020-05-12
 
 - Set `-Clinker-plugin-lto` for the sysroot build ([#71](https://github.com/rust-osdev/cargo-xbuild/pull/71))
