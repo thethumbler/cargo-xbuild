@@ -84,7 +84,7 @@ fn build_crate(
 
     let cargo = std::env::var("CARGO").unwrap_or("cargo".to_string());
     let mut cmd = Command::new(cargo);
-    cmd.env("RUSTFLAGS", "-Clinker-plugin-lto");
+    cmd.env("RUSTFLAGS", "-Cembed-bitcode=yes");
     cmd.env("CARGO_TARGET_DIR", &target_dir);
     cmd.env("__CARGO_DEFAULT_LIB_METADATA", "XARGO");
 
