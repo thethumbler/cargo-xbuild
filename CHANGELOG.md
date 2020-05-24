@@ -1,11 +1,11 @@
-0.5.33
-
 # Change Log
 
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## 0.5.33 - 2020-05-24
 
 - Don't print warning about missing root package in quiet mode ([#79](https://github.com/rust-osdev/cargo-xbuild/pull/79))
 
