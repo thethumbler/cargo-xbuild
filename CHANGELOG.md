@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+- Don't print warning about missing root package in quiet mode ([#79](https://github.com/rust-osdev/cargo-xbuild/pull/79))
+
 ## 0.5.32 - 2020-05-17
 
 - Pass -Cembed-bitcode=yes instead of -Clinker-plugin-lto for sysroot build ([#73](https://github.com/rust-osdev/cargo-xbuild/pull/73))
