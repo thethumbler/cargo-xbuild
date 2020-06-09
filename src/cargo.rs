@@ -233,6 +233,19 @@ impl<'t> fmt::Display for Profile<'t> {
     }
 }
 
+pub struct Features<'a> {
+    array: &'a Value,
+}
+
+impl<'a> fmt::Display for Features<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let mut map = toml::map::Map::new();
+        map.insert("cargo-features".to_owned(), self.array.clone());
+
+        fmt::Display::fmt(&Value::Table(map), f)
+    }
+}
+
 pub struct Toml {
     table: Value,
 }
@@ -244,6 +257,12 @@ impl Toml {
             .get("profile")
             .and_then(|v| v.get("release"))
             .map(|t| Profile { table: t })
+    }
+
+    pub fn features(&self) -> Option<Features> {
+        self.table
+            .get("cargo-features")
+            .map(|a| Features { array: a })
     }
 }
 
