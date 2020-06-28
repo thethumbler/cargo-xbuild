@@ -8,7 +8,7 @@ keywords = ["cli", "cross", "compilation", "std", "osdev"]
 license = "MIT OR Apache-2.0"
 name = "cargo-xbuild"
 repository = "https://github.com/rust-osdev/cargo-xbuild"
-version = "0.5.34"
+version = "0.5.35"
 
 [lib]
 name = "xargo_lib"
