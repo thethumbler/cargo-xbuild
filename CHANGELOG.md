@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+- Replace deprecated `tempdir` dependency with `tempfile` ([#84](https://github.com/rust-osdev/cargo-xbuild/pull/84))
+
 ## 0.5.34 - 2020-06-09
 
 - Propagate `cargo-features` from project's Cargo.toml ([#82](https://github.com/rust-osdev/cargo-xbuild/pull/82))
