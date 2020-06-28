@@ -1,11 +1,11 @@
-0.5.35
-
 # Change Log
 
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## 0.5.35 - 2020-06-28
 
 - Replace deprecated `tempdir` dependency with `tempfile` ([#84](https://github.com/rust-osdev/cargo-xbuild/pull/84))
 
