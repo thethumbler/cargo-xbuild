@@ -2,6 +2,29 @@
 
 Cargo-xbuild is a wrapper for `cargo build`, which cross compiles the sysroot crates `core`, `compiler_builtins`, and `alloc` for custom targets. It is a simplified fork of [`xargo`](https://github.com/japaric/xargo), which is in maintainance mode.
 
+## Alternative: The `build-std` feature of cargo
+
+Cargo now has its own feature for cross compiling the sysroot: [**`build-std`**](https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#build-std). You can use it by passing `-Z build-std=core,alloc` to `cargo build`. Alternatively, you can specify the following in a `.cargo/config.toml` file:
+
+```toml
+[unstable]
+build-std = ["core", "compiler_builtins", "alloc"]
+```
+
+The above requires at least Rust nightly 2020–07–15. With the above config in place, the normal `cargo build` command will now automatically cross-compile the specified sysroot crates.
+
+Since the `build-std` feature currently provides no way to enable the `mem` feature of `compiler_builtins`, you need to add a dependency on the [`rlibc`](https://docs.rs/rlibc/1.0.0/rlibc/) crate to provide implementations of `memset`, `memcpy`, etc, which the compiler expects. Note that you need to add an `extern crate rlibc` statement in order for this to work (even in the 2018 edition of Rust). This is required to get cargo to link the otherwise unused crate.
+
+Compared to `cargo-xbuild`, there are many advantages of using `cargo`'s own feature:
+
+- the normal `cargo {check, build, run, test}` commands can be used
+- no external tool must be installed
+- less bugs and breakage because it is always up to date with rustc/cargo
+- faster compilation since the compiler can build the sysroot concurrently to the project crates
+- it might be stablized one day
+
+So it is strongly recommended to try the `build-std` feature of cargo instead of using this crate.
+
 ## Dependencies
 
 - The `rust-src` component, which you can install with `rustup component add
@@ -9,7 +32,9 @@ Cargo-xbuild is a wrapper for `cargo build`, which cross compiles the sysroot cr
 
 - Rust and Cargo.
 
-## Installation
+## Installation of `cargo-xbuild`
+
+In case you decide to use `cargo-xbuild` instead of cargo's `build-std` feature for some reason, you can install this crate through:
 
 ```
 $ cargo install cargo-xbuild
