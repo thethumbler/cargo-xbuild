@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+- **Breaking:** Update cargo-xbuild to new rust directory layout ([#87](https://github.com/rust-osdev/cargo-xbuild/pull/87))
+
 ## 0.5.35 - 2020-06-28
 
 - Replace deprecated `tempdir` dependency with `tempfile` ([#84](https://github.com/rust-osdev/cargo-xbuild/pull/84))
