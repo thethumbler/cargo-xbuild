@@ -40,7 +40,7 @@ In case you decide to use `cargo-xbuild` instead of cargo's `build-std` feature 
 $ cargo install cargo-xbuild
 ```
 
-Note: The latest version of `cargo-xbuild` supports all nightlies after 2019-02-04. If you are on an older nightly, you need to install version 0.5.4: `cargo install cargo-xbuild --version 0.5.4`.
+Note: The latest version of `cargo-xbuild` supports all nightlies after 2020-07-30. If you are on an older nightly, you need to install version 0.5.35: `cargo install cargo-xbuild --version 0.5.35`.
 
 ## Usage
 
