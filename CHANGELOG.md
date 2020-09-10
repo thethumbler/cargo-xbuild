@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+- Fix winapi issues from flock() rework ([#94](https://github.com/rust-osdev/cargo-xbuild/pull/94))
+
 ## 0.6.1 – 2020-09-10 (yanked)
 
 - Remove fs2 dependency for broader platform support ([#91](https://github.com/rust-osdev/cargo-xbuild/pull/91))
