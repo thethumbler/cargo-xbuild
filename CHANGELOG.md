@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 0.6.2 – 2020-09-10
+
 - Fix winapi issues from flock() rework ([#94](https://github.com/rust-osdev/cargo-xbuild/pull/94))
 
 ## 0.6.1 – 2020-09-10 (yanked)
