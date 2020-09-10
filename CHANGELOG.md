@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
-## 0.6.1 – 2020-09-10
+## 0.6.1 – 2020-09-10 (yanked)
 
 - Remove fs2 dependency for broader platform support ([#91](https://github.com/rust-osdev/cargo-xbuild/pull/91))
 - Cleanup: Use eprintln! instead of writeln! with stderr ([#86](https://github.com/rust-osdev/cargo-xbuild/pull/86))
