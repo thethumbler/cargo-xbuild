@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+- Upgrade the crate to edition 2018 ([#97](https://github.com/rust-osdev/cargo-xbuild/pull/97))
+
 ## 0.6.2 – 2020-09-10
 
 - Fix winapi issues from flock() rework ([#94](https://github.com/rust-osdev/cargo-xbuild/pull/94))
