@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 0.6.4 – 2020-12-28
+
 - Don't panic on metadata errors ([#100](https://github.com/rust-osdev/cargo-xbuild/pull/100))
 
 ## 0.6.3 – 2020-10-21
