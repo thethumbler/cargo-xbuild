@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 0.6.5 – 2021-01-25
+
 - Ensure copied Cargo.lock is writable ([#98](https://github.com/rust-osdev/cargo-xbuild/pull/98))
 
 ## 0.6.4 – 2020-12-28
