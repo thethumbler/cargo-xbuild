@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 0.6.6 – 2022-06-21
+
 - Fix: The alloc crate uses the Rust 2021 edition now ([#105](https://github.com/rust-osdev/cargo-xbuild/pull/105))
 
 ## 0.6.5 – 2021-01-25
