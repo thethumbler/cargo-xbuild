@@ -73,8 +73,10 @@ impl Sysroot {
             });
         }
 
-        Err(anyhow!("`rust-src` component not found. Run `rustup component add \
-             rust-src`."))
+        Err(anyhow!(
+            "`rust-src` component not found. Run `rustup component add \
+             rust-src`."
+        ))
     }
 }
 

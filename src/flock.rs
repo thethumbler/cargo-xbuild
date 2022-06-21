@@ -52,7 +52,10 @@ pub struct Filesystem {
 
 impl Filesystem {
     pub fn new(path: PathBuf, quiet: bool) -> Filesystem {
-        Filesystem { path: path, quiet: quiet }
+        Filesystem {
+            path: path,
+            quiet: quiet,
+        }
     }
 
     pub fn join<T>(&self, other: T) -> Filesystem
@@ -111,7 +114,9 @@ impl Filesystem {
                 })?;
             }
             State::Shared => {
-                acquire(msg, &path, self.quiet, &|| try_lock_shared(&f), &|| lock_shared(&f))?;
+                acquire(msg, &path, self.quiet, &|| try_lock_shared(&f), &|| {
+                    lock_shared(&f)
+                })?;
             }
         }
 
@@ -183,11 +188,7 @@ fn acquire(
     }
 
     if !quiet {
-        eprintln!(
-            "{:>12} waiting for file lock on {}",
-            "Blocking",
-            msg
-        )
+        eprintln!("{:>12} waiting for file lock on {}", "Blocking", msg)
     }
 
     lock_block()
