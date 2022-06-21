@@ -93,12 +93,14 @@ fn build_crate(
             td_lockfile.display()
         )
     })?;
-    let mut perms = fs::metadata(&td_lockfile).with_context(|| {
-        format!(
-            "failed to retrieve permissions for `{}`",
-            td_lockfile.display()
-        )
-    })?.permissions();
+    let mut perms = fs::metadata(&td_lockfile)
+        .with_context(|| {
+            format!(
+                "failed to retrieve permissions for `{}`",
+                td_lockfile.display()
+            )
+        })?
+        .permissions();
     perms.set_readonly(false);
     fs::set_permissions(&td_lockfile, perms).with_context(|| {
         format!(
@@ -192,10 +194,7 @@ version = "0.1.0"
     }
 
     stoml.push_str("[dependencies.core]\n");
-    stoml.push_str(&format!(
-        "path = '{}'\n",
-        src.path().join("core").display()
-    ));
+    stoml.push_str(&format!("path = '{}'\n", src.path().join("core").display()));
 
     if config.panic_immediate_abort {
         stoml.push_str("features = ['panic_immediate_abort']\n");

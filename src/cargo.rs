@@ -123,7 +123,8 @@ fn flags(config: Option<&Config>, target: &str, tool: &str) -> Result<Vec<String
                     Err(anyhow!(
                         ".cargo/config: target.{}.{} must be an \
                          array of strings",
-                        target, tool
+                        target,
+                        tool
                     ))?
                 }
             } else {
